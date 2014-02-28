@@ -1,0 +1,46 @@
+{
+  "name": "exposify",
+  "version": "0.0.0",
+  "description": "Alias directories of files for browserify",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/joeybaker/exposify.git"
+  },
+  "keywords": [
+    "browserify-plugin",
+    "alias",
+    "directory",
+    "rename",
+    "browserify",
+    "browser",
+    "commonjs",
+    "folder"
+  ],
+  "author": "Joey Baker <joey@byjoeybaker.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joeybaker/exposify/issues"
+  },
+  "homepage": "https://github.com/joeybaker/exposify",
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "glob": "^3.2.9",
+    "aliasify": "^1.4.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.0",
+    "mocha": "^1.17.1",
+    "sinon": "^1.8.2",
+    "sinon-chai": "^2.5.0"
+  },
+  "peerDependencies": {
+    "browserify": ">=3.28.0"
+  }
+}
