@@ -38,18 +38,7 @@ gulp.task('lint', function(){
 })
 
 gulp.task('gitPrep', function(done){
-  var end = function end(err){
-      if (err) return done(err)
-
-      count--
-      if (count === 0) done()
-    }
-    , count = 1
-
-  execFile('./sh/git/isclean.sh', null, {cwd: __dirname, stdio: 'inherit'}, function(err, stdout, stderr){
-    end(err || stderr)
-  })
-
+  execFile('./sh/git/isclean.sh', null, {cwd: __dirname, stdio: 'inherit'}, done)
 })
 
 gulp.task('gitPull', ['gitPrep'], function(){
