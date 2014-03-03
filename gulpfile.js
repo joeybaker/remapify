@@ -80,12 +80,12 @@ gulp.task('tag', ['gitCommit'], function(){
     .pipe(git.tag('v' + pkg.version, pkg.version))
 })
 
-gulp.task('push', ['tag'], function(){
+gulp.task('gitPush', ['tag'], function(){
   return gulp.src('./')
     .pipe(git.push('origin', 'master', {args: '--tags'}))
 })
 
-gulp.task('publish', ['push'], function(done){
-  require('child_process').spawn('npm', ['publish'], {stdio: 'inherit'})
+gulp.task('publish', ['gitPush'], function(done){
+  require('child_process').exec('npm publish', {stdio: 'inherit'})
     .on('close', done)
 })
