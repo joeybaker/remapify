@@ -9,7 +9,7 @@ var gulp = require('gulp')
   , todo = require('gulp-todo')
   , execFile = require('child_process').execFile
   , mocha = require('gulp-mocha')
-  , argv = require('minimist')(process.argv.slice(2))
+  , argv = require('minimist')(process.argv.slice(2)) || {}
   , bump = require('gulp-bump')
   , paths = {
     app: ['./lib/**/*.js', './index.js']
@@ -45,14 +45,16 @@ gulp.task('gitPrep', function(done){
       if (count === 0) done()
     }
     , count = 1
-    execFile
 
-  execFile('./sh/git/isclean.sh', null, {cwd: __dirname}, function(err, stdout, stderr){
-    if (err || stderr) end(err || stderr)
-
-    git.pull('origin', 'master', {args: '--rebase'})
+  execFile('./sh/git/isclean.sh', null, {cwd: __dirname, stdio: 'inherit'}, function(err, stdout, stderr){
+    end(err || stderr)
   })
 
+})
+
+gulp.task('gitPull', ['gitPrep'], function(){
+  return gulp.src('./')
+    git.pull('origin', 'master', {args: '--rebase'})
 })
 
 gulp.task('test', ['lint'], function(){
@@ -64,25 +66,35 @@ gulp.task('test', ['lint'], function(){
     }))
 })
 
-gulp.task('bump', function(){
+gulp.task('bump', ['gitPull', 'test'], function(){
   return gulp.src('./package.json')
     .pipe(bump({
       type: argv.bump || 'patch'
       , indent: 2
     }))
-})
-
-gulp.task('tag', function(){
-  var pkg = require('./package.json')
-
-  return gulp.src('./')
-    .pipe(git.commit(pkg.version))
-    .pipe(git.tag('v' + pkg.version, pkg.version))
-    .pipe(git.push('origin', 'master', {args: '--tags'}))
     .pipe(gulp.dest('./'))
 })
 
-gulp.task('publish', ['gitPrep', 'lint', 'test', 'bump', 'tag'], function(done){
+gulp.task('gitCommit', ['bump'], function(){
+  var pkg = require('./package.json')
+
+  return gulp.src('./package.json')
+    .pipe(git.commit(pkg.version))
+})
+
+gulp.task('tag', ['gitCommit'], function(){
+  var pkg = require('./package.json')
+
+  return gulp.src('./')
+    .pipe(git.tag('v' + pkg.version, pkg.version))
+})
+
+gulp.task('push', ['tag'], function(){
+  return gulp.src('./')
+    .pipe(git.push('origin', 'master', {args: '--tags'}))
+})
+
+gulp.task('publish', ['push'], function(done){
   require('child_process').spawn('npm', ['publish'], {stdio: 'inherit'})
     .on('close', done)
 })
