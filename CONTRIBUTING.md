@@ -8,13 +8,14 @@ Please, [behave yourself](https://github.com/gulpjs/gulp/blob/master/CONTRIBUTIN
 
 ### Process
 1. Fork the Repo
+2. Add a test for your change. This test should fail before your change is implemented and succeed after.
 2. All tests should pass.
 3. Send a pull request.
 
 ## Creating issues
 GitHub issues can be treated like a massive, communal todo list. If you notice something wrong, toss an issue in and we'll get to it!
 
-**TL;DR Put issues into the right milestone if avaliable. Don't create new milestones or labels. Talk to the responsible person on a milestone before adding issues to a milestone that have a due date.**
+**TL;DR Put issues into the right milestone if available. Don't create new milestones or labels. Talk to the responsible person on a milestone before adding issues to a milestone that have a due date.**
 
 ### Bug Issues
 * mark with the "bug" label
