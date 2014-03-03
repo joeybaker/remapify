@@ -5,8 +5,12 @@ var gulp = require('gulp')
   , jshint = require('gulp-jshint')
   , jshintStylish = require('jshint-stylish')
   , jscs = require('gulp-jscs')
+  , git = require('gulp-git')
+  , todo = require('gulp-todo')
   , execFile = require('child_process').execFile
-  , exec = require('child_process').exec
+  , mocha = require('gulp-mocha')
+  , argv = require('minimist')(process.argv.slice(2))
+  , bump = require('gulp-bump')
   , paths = {
     app: ['./lib/**/*.js', './index.js']
     , tests: ['./test/**/*.js']
@@ -27,24 +31,58 @@ gulp.task('lint', function(){
     .pipe(jshint.reporter(jshintStylish))
     .pipe(jshint.reporter('fail'))
     .pipe(jscs())
+    .pipe(todo({
+      fileName: 'TODO.md'
+    }))
+    .pipe(gulp.dest('./'))
 })
 
-gulp.task('publish', ['lint'], function(done){
+gulp.task('gitPrep', function(done){
   var end = function end(err){
       if (err) return done(err)
 
       count--
       if (count === 0) done()
     }
-    , count = 2
+    , count = 1
+    execFile
 
   execFile('./sh/git/isclean.sh', null, {cwd: __dirname}, function(err, stdout, stderr){
-    end(err || stderr)
+    if (err || stderr) end(err || stderr)
+
+    git.pull('origin', 'master', {args: '--rebase'})
   })
 
-  exec('git pull --rebase origin master', null, {cwd: __dirname}, function(err, stdout, stderr){
-    stdout.pipe(console.log)
-    end(err || stderr)
-  })
+})
 
+gulp.task('test', ['lint'], function(){
+  return gulp.src('test/**/*.js')
+    .pipe(cache('test'))
+    .pipe(mocha({
+      ui: 'bdd'
+      , reporter: 'dot'
+    }))
+})
+
+gulp.task('bump', function(){
+  return gulp.src('./package.json')
+    .pipe(bump({
+      type: argv.bump || 'patch'
+      , indent: 2
+    }))
+})
+
+gulp.task('tag', function(){
+  var pkg = require('./package.json')
+
+  return gulp.src('./')
+    .pipe(git.commit(pkg.version))
+    .pipe(git.tag('v' + pkg.version, pkg.version))
+    .pipe(git.push('origin', 'master', {args: '--tags'}))
+    .pipe(gulp.dest('./'))
+})
+
+gulp.task('publish', ['gitPrep', 'lint', 'test', 'bump', 'tag'], function(done){
+  require('child_process').spawn('npm', ['publish'], {stdio: 'inherit'})
+    .on('close', done)
 })

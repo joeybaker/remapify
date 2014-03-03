@@ -45,7 +45,12 @@
     "gulp-cached": "0.0.3",
     "jshint-stylish": "^0.1.5",
     "gulp-jscs": "^0.3.2",
-    "gulp-exec": "^1.0.4"
+    "gulp-exec": "^1.0.4",
+    "gulp-mocha": "^0.4.1",
+    "gulp-todo": "^0.1.5",
+    "minimist": "0.0.8",
+    "gulp-bump": "^0.1.6",
+    "gulp-git": "^0.3.3"
   },
   "peerDependencies": {
     "browserify": ">=3.28.0"
