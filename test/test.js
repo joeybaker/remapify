@@ -26,9 +26,8 @@ describe('Exposify', function(){
   })
 
   it('gets all the files from a glob pattern', function(done){
+    should.exist(b)
     plugin(b, [{src: './test/fixtures/target/**/*.js', expose: 'path'}])
-
-    b.emit.should.not.have.been.calledWith('error')
 
     b.on('exposify:files', function(files){
       files.should.deep.equal(
@@ -37,6 +36,8 @@ describe('Exposify', function(){
         , './test/fixtures/target/nested/a.js'
         , './test/fixtures/target/nested/c.js']
       )
+
+      b.emit.should.not.have.been.calledWith('error')
 
       done()
     })
@@ -49,8 +50,6 @@ describe('Exposify', function(){
       , cwd: './test'
     }])
 
-    b.emit.should.not.have.been.calledWith('error')
-
     b.on('exposify:files', function(files){
       files.should.deep.equal(
         ['./fixtures/target/a.js'
@@ -58,6 +57,8 @@ describe('Exposify', function(){
         , './fixtures/target/nested/a.js'
         , './fixtures/target/nested/c.js']
       )
+
+      b.emit.should.not.have.been.calledWith('error')
 
       done()
     })
@@ -70,8 +71,6 @@ describe('Exposify', function(){
       , cwd: './test/fixtures/target'
     }])
 
-    b.emit.should.not.have.been.calledWith('error')
-
     b.on('exposify:files', function(files, expandedAliases){
       expandedAliases.should.deep.equal({
         'path/a.js': path.resolve(__dirname, './fixtures/target/a.js')
@@ -79,6 +78,8 @@ describe('Exposify', function(){
         , 'path/nested/a.js': path.resolve(__dirname, './fixtures/target/nested/a.js')
         , 'path/nested/c.js': path.resolve(__dirname, './fixtures/target/nested/c.js')
       })
+
+      b.emit.should.not.have.been.calledWith('error')
 
       done()
     })
@@ -90,8 +91,6 @@ describe('Exposify', function(){
       , cwd: './test/fixtures/target'
     }])
 
-    b.emit.should.not.have.been.calledWith('error')
-
     b.on('exposify:files', function(files, expandedAliases){
       expandedAliases.should.deep.equal({
         'a.js': path.resolve(__dirname, './fixtures/target/a.js')
@@ -99,6 +98,8 @@ describe('Exposify', function(){
         , 'nested/a.js': path.resolve(__dirname, './fixtures/target/nested/a.js')
         , 'nested/c.js': path.resolve(__dirname, './fixtures/target/nested/c.js')
       })
+
+      b.emit.should.not.have.been.calledWith('error')
 
       done()
     })
