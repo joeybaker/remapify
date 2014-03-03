@@ -1,7 +1,7 @@
 Wheelhouse Router
 =======================
 
-[![NPM](https://nodei.co/npm/exposify.png)](https://nodei.co/npm/exposify/)
+[![NPM](https://nodei.co/npm/remapify.png)](https://nodei.co/npm/remapify/)
 
 A [Browserify](https://github.com/substack/node-browserify) plugin
 

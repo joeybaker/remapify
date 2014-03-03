@@ -1,5 +1,5 @@
 {
-  "name": "exposify",
+  "name": "remapify",
   "version": "0.0.0",
   "description": "Alias directories of files for browserify",
   "main": "index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/joeybaker/exposify.git"
+    "url": "git://github.com/joeybaker/remapify.git"
   },
   "keywords": [
     "browserify-plugin",
@@ -27,9 +27,9 @@
   "author": "Joey Baker <joey@byjoeybaker.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/joeybaker/exposify/issues"
+    "url": "https://github.com/joeybaker/remapify/issues"
   },
-  "homepage": "https://github.com/joeybaker/exposify",
+  "homepage": "https://github.com/joeybaker/remapify",
   "dependencies": {
     "lodash": "^2.4.1",
     "glob": "^3.2.9",

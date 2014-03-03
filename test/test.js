@@ -3,7 +3,7 @@
 
 var sinon = require('sinon')
   , chai = require('chai')
-  , plugin = require('../lib/exposify.js')
+  , plugin = require('../lib/remapify.js')
   , aliasify = require('aliasify')
   , should = chai.should()
   , path = require('path')
@@ -11,7 +11,7 @@ var sinon = require('sinon')
 
 chai.use(require('sinon-chai'))
 
-describe('Exposify', function(){
+describe('remapify', function(){
   var b
 
   beforeEach(function(){
@@ -29,7 +29,7 @@ describe('Exposify', function(){
     should.exist(b)
     plugin(b, [{src: './test/fixtures/target/**/*.js', expose: 'path'}])
 
-    b.on('exposify:files', function(files){
+    b.on('remapify:files', function(files){
       files.should.deep.equal(
         ['./test/fixtures/target/a.js'
         , './test/fixtures/target/b.js'
@@ -50,7 +50,7 @@ describe('Exposify', function(){
       , cwd: './test'
     }])
 
-    b.on('exposify:files', function(files){
+    b.on('remapify:files', function(files){
       files.should.deep.equal(
         ['./fixtures/target/a.js'
         , './fixtures/target/b.js'
@@ -71,7 +71,7 @@ describe('Exposify', function(){
       , cwd: './test/fixtures/target'
     }])
 
-    b.on('exposify:files', function(files, expandedAliases){
+    b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.deep.equal({
         'path/a.js': path.resolve(__dirname, './fixtures/target/a.js')
         , 'path/b.js': path.resolve(__dirname, './fixtures/target/b.js')
@@ -91,7 +91,7 @@ describe('Exposify', function(){
       , cwd: './test/fixtures/target'
     }])
 
-    b.on('exposify:files', function(files, expandedAliases){
+    b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.deep.equal({
         'a.js': path.resolve(__dirname, './fixtures/target/a.js')
         , 'b.js': path.resolve(__dirname, './fixtures/target/b.js')

@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./lib/exposify.js')
+module.exports = require('./lib/remapify.js')
