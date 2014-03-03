@@ -44,7 +44,8 @@
     "gulp-jshint": "^1.5.0",
     "gulp-cached": "0.0.3",
     "jshint-stylish": "^0.1.5",
-    "gulp-jscs": "^0.3.2"
+    "gulp-jscs": "^0.3.2",
+    "gulp-exec": "^1.0.4"
   },
   "peerDependencies": {
     "browserify": ">=3.28.0"
