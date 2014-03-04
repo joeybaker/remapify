@@ -7,7 +7,6 @@ var gulp = require('gulp')
   , jscs = require('gulp-jscs')
   , git = require('gulp-git')
   , todo = require('gulp-todo')
-  , execFile = require('child_process').execFile
   , mocha = require('gulp-mocha')
   , argv = require('minimist')(process.argv.slice(2)) || {}
   , bump = require('gulp-bump')
@@ -38,7 +37,8 @@ gulp.task('lint', function(){
 })
 
 gulp.task('gitPrep', function(done){
-  execFile('./sh/git/isclean.sh', null, {cwd: __dirname, stdio: 'inherit'}, done)
+  require('child_process').spawn('sh', ['./sh/git/isclean.sh'], {cwd: __dirname, stdio: 'inherit'})
+    .on('close', done)
 })
 
 gulp.task('gitPull', ['gitPrep'], function(){
