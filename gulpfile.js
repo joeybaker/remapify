@@ -55,7 +55,7 @@ gulp.task('test', ['lint'], function(){
 })
 
 gulp.task('bump', ['gitPull', 'test'], function(){
-  console.log(argv)
+  console.log(argv.bump || 'patch')
   return gulp.src('./package.json')
     .pipe(bump({
       type: argv.bump || 'patch'
