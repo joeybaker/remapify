@@ -83,7 +83,7 @@ gulp.task('gitPush', ['tag'], function(){
     .pipe(git.push('origin', 'master', {args: '--tags'}))
 })
 
-// gulp.task('publish', ['gitPush'], function(done){
-//   require('child_process').exec('npm publish', {stdio: 'inherit'})
-//     .on('close', done)
-// })
+gulp.task('publish', ['gitPush'], function(done){
+  require('child_process').exec('npm publish', {stdio: 'inherit'})
+    .on('close', done)
+})
