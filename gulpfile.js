@@ -60,8 +60,7 @@ gulp.task('gitPrep', function(done){
 })
 
 gulp.task('gitPull', ['gitPrep'], function(){
-  return gulp.src('./')
-    git.pull('origin', 'master', {args: '--rebase'})
+  git.pull('origin', 'master', {args: '--rebase'})
 })
 
 gulp.task('gitCommit', ['bump'], function(){
