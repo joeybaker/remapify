@@ -31,6 +31,59 @@ app
 ```
 
 ## Usage
+```js
+var browserify = require('browserify')
+  , remapify = require('remapify')
+  , b = browserify(_dirname)
+
+b.plugin(remapify, [
+  {
+    src: './client/views/**/*.js' // glob for the files to remap
+    , expose: 'views' // this will expose `__dirname + /client/views/home.js` as `views/home.js`
+    , cwd: __dirname // defaults to process.cwd()
+  }
+])
+
+b.bundle()
+```
+
+### options `[]``
+Array of objects. Each object is one remapping.
+
+#### `src`
+Glob pattern to find the files to remap.
+
+#### `expose`
+Replace the `cwd` of each file in `src` with this value.
+
+#### `cwd` (optional)
+Specify the 'current working directory' for the glob pattern to start from and for the `expose` option to replace.
+
+#### glob options
+All options specified by the [glob](https://www.npmjs.org/package/glob) module can be used as well.
+
+### events
+Remapify will emit events while processing. This is implemented to make testing easier, but… maybe it'll be useful for other things. The events are emitted on the bundle.
+
+#### `b.on('remapify:file', function(file, expandedAliases, globber, pattern){})`
+Emitted when the globbing finds a file to remap.
+
+##### `file`
+The path to the file
+
+##### `expandedAliases`
+The list of files and what they will be exposed as as found so far. Includes this file.
+
+##### `globber`
+The full [glob instance](https://github.com/isaacs/node-glob#properties).
+
+##### `pattern`
+The glob pattern in use.
+
+#### `b.on('remapify:files', function(file, expandedAliases, globber, pattern){})`
+Emitted when all files have been found to be remapped.
+
+The arguments are the same as above.
 
 ## tests
 All tests are mocha. You can run them with either `npm test` or `mocha test`.
