@@ -17,9 +17,9 @@ var gulp = require('gulp')
   }
 
 gulp.task('default', function(){
-  console.log('Possible Commands\n')
+  console.info('Possible Commands\n')
   Object.keys(gulp.tasks).forEach(function(task){
-    console.log(task)
+    console.info(task)
   })
 })
 
@@ -55,7 +55,6 @@ gulp.task('test', ['lint'], function(){
 })
 
 gulp.task('bump', ['gitPull', 'test'], function(){
-  console.log(argv.bump || 'patch')
   return gulp.src('./package.json')
     .pipe(bump({
       type: argv.bump || 'patch'
@@ -64,20 +63,18 @@ gulp.task('bump', ['gitPull', 'test'], function(){
     .pipe(gulp.dest('./'))
 })
 
-gulp.task('gitCommit', ['bump'], function(done){
+gulp.task('gitCommit', ['bump'], function(){
   var pkg = require('./package.json')
 
   gulp.src('./package.json')
     .pipe(git.commit(pkg.version))
-    .on('end', done)
 })
 
-gulp.task('tag', ['gitCommit'], function(done){
+gulp.task('tag', ['gitCommit'], function(){
   var pkg = require('./package.json')
 
   gulp.src('./')
     .pipe(git.tag('v' + pkg.version, pkg.version))
-    .on('end', done)
 })
 
 gulp.task('gitPush', ['tag'], function(){
