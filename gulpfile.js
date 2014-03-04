@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp')
+  , gutil = require('gulp-util')
   , cache = require('gulp-cached')
   , jshint = require('gulp-jshint')
   , jshintStylish = require('jshint-stylish')
@@ -17,9 +18,9 @@ var gulp = require('gulp')
   }
 
 gulp.task('default', function(){
-  console.info('Possible Commands\n')
-  Object.keys(gulp.tasks).forEach(function(task){
-    console.info(task)
+  gutil.log(gutil.colors.green('Possible Commands\n'))
+  Object.keys(gulp.tasks).sort().forEach(function(task){
+    gutil.log('  -', task)
   })
 })
 
@@ -33,16 +34,6 @@ gulp.task('lint', function(){
     // .pipe(todo({
     //   fileName: 'TODO.md'
     // }))
-})
-
-gulp.task('gitPrep', function(done){
-  require('child_process').spawn('sh', ['./sh/git/isclean.sh'], {cwd: __dirname, stdio: 'inherit'})
-    .on('close', done)
-})
-
-gulp.task('gitPull', ['gitPrep'], function(){
-  return gulp.src('./')
-    git.pull('origin', 'master', {args: '--rebase'})
 })
 
 gulp.task('test', ['lint'], function(){
@@ -63,6 +54,16 @@ gulp.task('bump', ['gitPull', 'test'], function(){
     .pipe(gulp.dest('./'))
 })
 
+gulp.task('gitPrep', function(done){
+  require('child_process').spawn('sh', ['./sh/git/isclean.sh'], {cwd: __dirname, stdio: 'inherit'})
+    .on('close', done)
+})
+
+gulp.task('gitPull', ['gitPrep'], function(){
+  return gulp.src('./')
+    git.pull('origin', 'master', {args: '--rebase'})
+})
+
 gulp.task('gitCommit', ['bump'], function(){
   var pkg = require('./package.json')
 
@@ -71,18 +72,21 @@ gulp.task('gitCommit', ['bump'], function(){
 })
 
 gulp.task('tag', ['gitCommit'], function(){
-  var pkg = require('./package.json')
+  // var pkg = require('./package.json')
 
   gulp.src('./')
-    .pipe(git.tag('v' + pkg.version, pkg.version))
+    // .pipe(git.tag('v' + pkg.version, pkg.version))
 })
 
 gulp.task('gitPush', ['tag'], function(){
   return gulp.src('./')
-    .pipe(git.push('origin', 'master', {args: '--tags'}))
+    // .pipe(git.push('origin', 'master', {args: '--tags'}))
 })
 
 gulp.task('publish', ['gitPush'], function(done){
-  require('child_process').spawn('npm', ['publish'], {stdio: 'inherit', cwd: __dirname})
-    .on('close', done)
+  // require('child_process').spawn('npm', ['publish'], {stdio: 'inherit', cwd: __dirname})
+    // .on('close', done)
+    setTimeout(function(){
+      done()
+    }, 500)
 })
