@@ -33,7 +33,6 @@ gulp.task('lint', function(){
     .pipe(todo({
       fileName: 'TODO.md'
     }))
-    .pipe(gulp.dest('./'))
 })
 
 gulp.task('gitPrep', function(done){
