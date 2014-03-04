@@ -47,7 +47,7 @@ b.plugin(remapify, [
 b.bundle()
 ```
 
-### options `[]``
+### options `[{}]`
 Array of objects. Each object is one remapping.
 
 #### `src`
@@ -68,17 +68,10 @@ Remapify will emit events while processing. This is implemented to make testing 
 #### `b.on('remapify:file', function(file, expandedAliases, globber, pattern){})`
 Emitted when the globbing finds a file to remap.
 
-##### `file`
-The path to the file
-
-##### `expandedAliases`
-The list of files and what they will be exposed as as found so far. Includes this file.
-
-##### `globber`
-The full [glob instance](https://github.com/isaacs/node-glob#properties).
-
-##### `pattern`
-The glob pattern in use.
+* **`file`** The path to the file
+* **`expandedAliases`** The list of files and what they will be exposed as as found so far. Includes this file.
+* **`globber`** The full [glob instance](https://github.com/isaacs/node-glob#properties).
+* **`pattern`** The glob pattern in use.
 
 #### `b.on('remapify:files', function(file, expandedAliases, globber, pattern){})`
 Emitted when all files have been found to be remapped.
