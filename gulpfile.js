@@ -4,7 +4,7 @@ var gulp = require('gulp')
   , cache = require('gulp-cached')
   , jshint = require('gulp-jshint')
   , jshintStylish = require('jshint-stylish')
-  , jscs = require('gulp-jscs')
+  // , jscs = require('gulp-jscs')
   , git = require('gulp-git')
   , todo = require('gulp-todo')
   , mocha = require('gulp-mocha')
@@ -29,7 +29,7 @@ gulp.task('lint', function(){
     .pipe(jshint())
     .pipe(jshint.reporter(jshintStylish))
     .pipe(jshint.reporter('fail'))
-    .pipe(jscs())
+    // .pipe(jscs())
     .pipe(todo({
       fileName: 'TODO.md'
     }))
