@@ -5,3 +5,6 @@ node_js:
 
 script:
   - "gulp test"
+
+notifications:
+  email: false
