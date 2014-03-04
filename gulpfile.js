@@ -88,5 +88,5 @@ gulp.task('publish', ['gitPush'], function(done){
     // .on('close', done)
     setTimeout(function(){
       done()
-    }, 500)
+    }, 2000)
 })
