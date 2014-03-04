@@ -59,27 +59,28 @@ gulp.task('gitPrep', function(done){
     .on('close', done)
 })
 
-gulp.task('gitPull', ['gitPrep'], function(){
-  git.pull('origin', 'master', {args: '--rebase'})
+gulp.task('gitPull', ['gitPrep'], function(done){
+  // TODO: disable until https://github.com/stevelacy/gulp-git/pull/9 is merged.
+  // git.pull('origin', 'master', {args: '--rebase'}, done)
+  require('child_process').spawn('git', ['pull', '--rebase', 'origin', 'master'], {stdio: 'inherit', cwd: __dirname})
+    .on('close', done)
 })
 
 gulp.task('gitCommit', ['bump'], function(){
   var pkg = require('./package.json')
 
-  gulp.src('./package.json')
+  return gulp.src('./package.json')
     .pipe(git.commit(pkg.version))
 })
 
-gulp.task('tag', ['gitCommit'], function(){
-  // var pkg = require('./package.json')
+gulp.task('tag', ['gitCommit'], function(done){
+  var pkg = require('./package.json')
 
-  gulp.src('./')
-    // .pipe(git.tag('v' + pkg.version, pkg.version))
+  git.tag('v' + pkg.version, pkg.version, null, done)
 })
 
-gulp.task('gitPush', ['tag'], function(){
-  return gulp.src('./')
-    // .pipe(git.push('origin', 'master', {args: '--tags'}))
+gulp.task('gitPush', ['tag'], function(done){
+  git.push('origin', 'master', {args: '--tags'}, done)
 })
 
 gulp.task('publish', ['gitPush'], function(done){
