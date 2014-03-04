@@ -39,6 +39,7 @@ gulp.task('lint', function(){
 gulp.task('gitPrep', function(done){
   require('child_process').spawn('sh', ['./sh/git/isclean.sh'], {cwd: __dirname, stdio: 'inherit'})
     .on('close', done)
+    .on('exit', done)
 })
 
 gulp.task('gitPull', ['gitPrep'], function(){
@@ -86,4 +87,5 @@ gulp.task('gitPush', ['tag'], function(){
 gulp.task('publish', ['gitPush'], function(done){
   require('child_process').spawn('npm', ['publish'], {stdio: 'inherit', cwd: __dirname})
     .on('close', done)
+    .on('exit', done)
 })
