@@ -39,7 +39,6 @@ gulp.task('lint', function(){
 gulp.task('gitPrep', function(done){
   require('child_process').spawn('sh', ['./sh/git/isclean.sh'], {cwd: __dirname, stdio: 'inherit'})
     .on('close', done)
-    .on('exit', done)
 })
 
 gulp.task('gitPull', ['gitPrep'], function(){
@@ -65,18 +64,20 @@ gulp.task('bump', ['gitPull', 'test'], function(){
     .pipe(gulp.dest('./'))
 })
 
-gulp.task('gitCommit', ['bump'], function(){
+gulp.task('gitCommit', ['bump'], function(done){
   var pkg = require('./package.json')
 
-  return gulp.src('./package.json')
+  gulp.src('./package.json')
     .pipe(git.commit(pkg.version))
+    .on('end', done)
 })
 
-gulp.task('tag', ['gitCommit'], function(){
+gulp.task('tag', ['gitCommit'], function(done){
   var pkg = require('./package.json')
 
-  return gulp.src('./')
+  gulp.src('./')
     .pipe(git.tag('v' + pkg.version, pkg.version))
+    .on('end', done)
 })
 
 gulp.task('gitPush', ['tag'], function(){
@@ -87,5 +88,4 @@ gulp.task('gitPush', ['tag'], function(){
 gulp.task('publish', ['gitPush'], function(done){
   require('child_process').spawn('npm', ['publish'], {stdio: 'inherit', cwd: __dirname})
     .on('close', done)
-    .on('exit', done)
 })
