@@ -9,7 +9,6 @@ var gulp = require('gulp')
   , todo = require('gulp-todo')
   , execFile = require('child_process').execFile
   , mocha = require('gulp-mocha')
-  , plumber = require('gulp-plumber')
   , argv = require('minimist')(process.argv.slice(2)) || {}
   , bump = require('gulp-bump')
   , paths = {
@@ -58,7 +57,6 @@ gulp.task('test', ['lint'], function(){
 
 gulp.task('bump', ['gitPull', 'test'], function(){
   return gulp.src('./package.json')
-    .pipe(plumber())
     .pipe(bump({
       type: argv.bump || 'patch'
       , indent: 2
@@ -85,7 +83,7 @@ gulp.task('gitPush', ['tag'], function(){
     .pipe(git.push('origin', 'master', {args: '--tags'}))
 })
 
-gulp.task('publish', ['gitPush'], function(done){
-  require('child_process').exec('npm publish', {stdio: 'inherit'})
-    .on('close', done)
-})
+// gulp.task('publish', ['gitPush'], function(done){
+//   require('child_process').exec('npm publish', {stdio: 'inherit'})
+//     .on('close', done)
+// })
