@@ -1,4 +1,4 @@
-Wheelhouse Router
+Remapify
 =======================
 
 [![NPM](https://nodei.co/npm/remapify.png)](https://nodei.co/npm/remapify/) ![Travis](https://travis-ci.org/joeybaker/exposify.png)
