@@ -7,7 +7,7 @@ var gulp = require('gulp')
   , jshintStylish = require('jshint-stylish')
   , jscs = require('gulp-jscs')
   , git = require('gulp-git')
-  // , todo = require('gulp-todo')
+  , todo = require('gulp-todo')
   , mocha = require('gulp-mocha')
   , argv = require('minimist')(process.argv.slice(2)) || {}
   , bump = require('gulp-bump')
@@ -29,11 +29,11 @@ gulp.task('lint', function(){
     .pipe(cache('linting'))
     .pipe(jshint())
     .pipe(jshint.reporter(jshintStylish))
-    // .pipe(jshint.reporter('fail'))
+    .pipe(jshint.reporter('fail'))
     .pipe(jscs())
-    // .pipe(todo({
-    //   fileName: 'TODO.md'
-    // }))
+    .pipe(todo({
+      fileName: 'TODO.md'
+    }))
 })
 
 gulp.task('test', ['lint'], function(){
@@ -84,9 +84,6 @@ gulp.task('gitPush', ['tag'], function(done){
 })
 
 gulp.task('publish', ['gitPush'], function(done){
-  // require('child_process').spawn('npm', ['publish'], {stdio: 'inherit', cwd: __dirname})
-    // .on('close', done)
-    setTimeout(function(){
-      done()
-    }, 2000)
+  require('child_process').spawn('npm', ['publish'], {stdio: 'inherit', cwd: __dirname})
+    .on('close', done)
 })
