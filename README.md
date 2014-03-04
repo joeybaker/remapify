@@ -1,7 +1,7 @@
 Remapify
 =======================
 
-[![NPM](https://nodei.co/npm/remapify.png)](https://nodei.co/npm/remapify/) ![Travis](https://travis-ci.org/joeybaker/exposify.png)
+[![NPM](https://nodei.co/npm/remapify.png)](https://nodei.co/npm/remapify/) [![Build Status](https://travis-ci.org/joeybaker/remapify.png?branch=master)](https://travis-ci.org/joeybaker/remapify)
 
 A [Browserify](https://github.com/substack/node-browserify) plugin to map whole directories as different directories to browserify. This is useful if you have a common batch of files that you don't want to have to refer to relatively all the time.
 
