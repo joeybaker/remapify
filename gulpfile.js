@@ -84,6 +84,6 @@ gulp.task('gitPush', ['tag'], function(){
 })
 
 gulp.task('publish', ['gitPush'], function(done){
-  require('child_process').exec('npm publish', {stdio: 'inherit'})
+  require('child_process').spawn('npm', ['publish'], {stdio: 'inherit'})
     .on('close', done)
 })
