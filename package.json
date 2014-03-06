@@ -27,6 +27,12 @@
   ],
   "author": "Joey Baker <joey@byjoeybaker.com>",
   "license": "Artistic-2.0",
+  "config": {
+    "blanket": {
+      "pattern": "lib",
+      "data-cover-never": "node_modules"
+    }
+  },
   "bugs": {
     "url": "https://github.com/joeybaker/remapify/issues"
   },
@@ -52,7 +58,10 @@
     "minimist": "0.0.8",
     "gulp-bump": "^0.1.6",
     "gulp-git": "^0.3.3",
-    "gulp-util": "~2.2.14"
+    "gulp-util": "~2.2.14",
+    "blanket": "^1.1.6",
+    "mocha-lcov-reporter": "0.0.1",
+    "coveralls": "^2.8.0"
   },
   "peerDependencies": {
     "browserify": ">=3.28.0"

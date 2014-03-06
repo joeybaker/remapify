@@ -3,13 +3,15 @@
 
 var sinon = require('sinon')
   , chai = require('chai')
-  , plugin = require('../lib/remapify.js')
   , aliasify = require('aliasify')
   , should = chai.should()
   , path = require('path')
   , Emitter = require('events').EventEmitter
+  , plugin
 
+require('blanket')
 chai.use(require('sinon-chai'))
+plugin = require('../lib/remapify.js')
 
 describe('remapify', function(){
   var b
