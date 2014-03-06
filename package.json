@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
+    "test": "NODE_ENV=test REMAPIFY_COVERAGE=1 ./node_modules/.bin/mocha --require blanket --reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js",
     "lint": "./node_modules/gulp/bin/gulp.js lint",
     "release": "./node_modules/gulp/bin/gulp.js publish"
   },

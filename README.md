@@ -79,7 +79,8 @@ Emitted when all files have been found to be remapped.
 The arguments are the same as above.
 
 ## tests
-All tests are mocha. You can run them with either `npm test` or `mocha test`.
+All tests are mocha. You can run them with either `mocha test`.
+_NOTE: `npm test` is setup for Travis CI, it will not produce output locally._
 
 ## Changelog
 See `CHANGELOG.md`
