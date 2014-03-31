@@ -16,6 +16,7 @@ describe('remapify', function(){
 
   beforeEach(function(){
     b = new Emitter()
+    b.transform = sinon.stub()
     sinon.spy(b, 'emit')
     sinon.stub(aliasify, 'configure')
   })
@@ -102,6 +103,21 @@ describe('remapify', function(){
       b.emit.should.not.have.been.calledWith('error')
 
       done()
+    })
+  })
+
+  it('calls `b.transform` on all expanded aliases', function(){
+    plugin(b, [{
+      src: './**/*.js'
+      , expose: 'path'
+      , cwd: './test/fixtures/target'
+    }])
+
+    b.on('remapify:files', function(){
+      // wait for the callstack to clear since the event is triggered before b.transform is called.
+      setImmediate(function(){
+        b.transform.should.have.been.calledOnce
+      })
     })
   })
 })
