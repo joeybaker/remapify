@@ -56,7 +56,7 @@ Array of objects. Each object is one remapping.
 #### `src`
 Glob pattern to find the files to remap.
 
-#### `ext`
+#### `ext` (optional)
 Specify if each exposed file alias ends with its extension (.js) or not.
 
 #### `expose`
