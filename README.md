@@ -26,8 +26,10 @@ app
 // _avatar.js
   // this gets really old after a while, and is prone to breaking if you change the directory hiearchy.
   var person = require('../../models/person.js')
-  // This is much better
+  // This is much better (default ext: true)
   var person = require('models/person.js')
+  // This is even better (ext: false)
+  var person = require('models/person')
 ```
 
 ## Usage
@@ -39,6 +41,7 @@ var browserify = require('browserify')
 b.plugin(remapify, [
   {
     src: './client/views/**/*.js' // glob for the files to remap
+    , ext: false      // defaults to true, `ext: false` will strip the .js from the exposed alias
     , expose: 'views' // this will expose `__dirname + /client/views/home.js` as `views/home.js`
     , cwd: __dirname // defaults to process.cwd()
   }
@@ -52,6 +55,9 @@ Array of objects. Each object is one remapping.
 
 #### `src`
 Glob pattern to find the files to remap.
+
+#### `ext` (optional)
+Specify if each exposed file alias ends with its extension (.js) or not.
 
 #### `expose`
 Replace the `cwd` of each file in `src` with this value.
