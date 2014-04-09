@@ -78,8 +78,14 @@ Emitted when all files have been found to be remapped.
 
 The arguments are the same as above.
 
-## tests
+## Tests
 All tests are mocha. You can run them with either `npm test` or `mocha test`.
+
+## Development
+
+* TDD with `nodemon -x npm -- test`
+* Release with `npm run release`
+* Releasing runs jscs and jshint. You can manually run with `npm run lint`
 
 ## Changelog
 See `CHANGELOG.md`
