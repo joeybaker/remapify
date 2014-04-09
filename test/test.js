@@ -73,12 +73,13 @@ describe('remapify', function(){
     }])
 
     b.on('remapify:files', function(files, expandedAliases){
-      expandedAliases.should.deep.equal({
-        'path/a.js': path.resolve(__dirname, './fixtures/target/a.js')
-        , 'path/b.js': path.resolve(__dirname, './fixtures/target/b.js')
-        , 'path/nested/a.js': path.resolve(__dirname, './fixtures/target/nested/a.js')
-        , 'path/nested/c.js': path.resolve(__dirname, './fixtures/target/nested/c.js')
-      })
+      expandedAliases.should.contain.keys(
+        'path/a.js'
+        , 'path/b.js'
+        , 'path/nested/a.js'
+        , 'path/nested/c.js'
+      )
+      expandedAliases['path/a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
 
       b.emit.should.not.have.been.calledWith('error')
 
@@ -93,17 +94,39 @@ describe('remapify', function(){
     }])
 
     b.on('remapify:files', function(files, expandedAliases){
-      expandedAliases.should.deep.equal({
-        'a.js': path.resolve(__dirname, './fixtures/target/a.js')
-        , 'b.js': path.resolve(__dirname, './fixtures/target/b.js')
-        , 'nested/a.js': path.resolve(__dirname, './fixtures/target/nested/a.js')
-        , 'nested/c.js': path.resolve(__dirname, './fixtures/target/nested/c.js')
-      })
+      expandedAliases.should.contain.keys(
+        'a.js'
+        , 'b.js'
+        , 'nested/a.js'
+        , 'nested/c.js'
+      )
+      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
 
       b.emit.should.not.have.been.calledWith('error')
 
       done()
     })
+  })
+
+  it('aliases with and without the `.js` extension', function(done){
+    plugin(b, [{
+      src: './**/*.js'
+      , cwd: './test/fixtures/target'
+    }])
+
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'a.js'
+        , 'a'
+      )
+      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+      expandedAliases.a.should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+    })
+
   })
 
   it('calls `b.transform` on all expanded aliases', function(){
