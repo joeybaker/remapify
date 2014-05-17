@@ -12,10 +12,14 @@ var sinon = require('sinon')
 chai.use(require('sinon-chai'))
 
 describe('remapify', function(){
+  var bOptions = [".coffee", ".txt"]
   var b
 
   beforeEach(function(){
     b = new Emitter()
+    // as is in the current branch of browserify
+    b._extensions = [ '.js', '.json' ]
+        .concat(bOptions).filter(Boolean)
     b.transform = sinon.stub()
     sinon.spy(b, 'emit')
     sinon.stub(aliasify, 'configure')
