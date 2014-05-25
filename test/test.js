@@ -7,19 +7,25 @@ var sinon = require('sinon')
   , aliasify = require('aliasify')
   , should = chai.should()
   , path = require('path')
+  , inherits = require('util').inherits
   , Emitter = require('events').EventEmitter
+  , Browserify = function(opts){
+      var self = this;
+      self._extensions = ['.js', '.json']
+        .concat(opts ? opts.extensions: []).filter(Boolean)
+      ;
+      return self;
+  }
+
+inherits(Browserify, Emitter)
 
 chai.use(require('sinon-chai'))
 
 describe('remapify', function(){
-  var bOptions = [".coffee", ".txt"]
   var b
 
   beforeEach(function(){
-    b = new Emitter()
-    // as is in the current branch of browserify
-    b._extensions = [ '.js', '.json' ]
-        .concat(bOptions).filter(Boolean)
+    b = new Browserify()
     b.transform = sinon.stub()
     sinon.spy(b, 'emit')
     sinon.stub(aliasify, 'configure')
@@ -28,6 +34,46 @@ describe('remapify', function(){
   afterEach(function(){
     b.emit.restore()
     aliasify.configure.restore()
+  })
+
+  it('exposes aliases in accordance to browserify _extension property', function(done){
+    b._extensions.push('.coffee', '.hbs')
+
+    plugin(b, [{
+      src: './**/*.coffee'
+      , cwd: './test/fixtures/target/mixed'
+    }
+    , {
+      src: './**/*.hbs'
+      , cwd: './test/fixtures/target/mixed'
+    }])
+
+    // are .coffee files aliased?
+    b.once('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'c.coffee'
+        , 'c'
+      )
+      expandedAliases['c.coffee'].should.equal(path.resolve(__dirname, './fixtures/target/mixed/c.coffee'))
+      expandedAliases.c.should.equal(path.resolve(__dirname, './fixtures/target/mixed/c.coffee'))
+      b.emit.should.not.have.been.calledWith('error')
+    })
+
+    // are .hbs files aliased?
+    b.once('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'd.hbs'
+        , 'd'
+      )
+      expandedAliases['d.hbs'].should.equal(path.resolve(__dirname, './fixtures/target/mixed/d.hbs'))
+      expandedAliases.d.should.equal(path.resolve(__dirname, './fixtures/target/mixed/d.hbs'))
+
+      b.emit.should.not.have.been.calledWith('error')
+    })
+
+    b.on('remapify:patterns', function(){
+      done()
+    })
   })
 
   it('gets all the files from a glob pattern', function(done){
@@ -130,7 +176,6 @@ describe('remapify', function(){
 
       done()
     })
-
   })
 
   it('calls `b.transform` on all expanded aliases', function(){

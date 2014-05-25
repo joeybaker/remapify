@@ -78,6 +78,11 @@ Emitted when all files have been found to be remapped.
 
 The arguments are the same as above.
 
+#### `b.on('remapify:patterns', function(expandedAliases){})`
+Emitted when all patterns have been processed, and all files remapped.
+
+* **`expandedAliases`** The list of all matched files and what they will be exposed as, when the plugin finishes. Includes this file.
+
 ## Tests
 All tests are mocha. You can run them with either `npm test` or `mocha test`.
 
