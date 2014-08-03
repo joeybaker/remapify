@@ -34,7 +34,7 @@ app
 ```js
 var browserify = require('browserify')
   , remapify = require('remapify')
-  , b = browserify(_dirname)
+  , b = browserify(__dirname)
 
 b.plugin(remapify, [
   {
