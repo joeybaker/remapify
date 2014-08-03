@@ -37,7 +37,7 @@ gulp.task('lint', function(){
 })
 
 gulp.task('test', ['lint'], function(){
-  return gulp.src('test/**/*.js')
+  return gulp.src('test/test.js')
     .pipe(cache('test'))
     .pipe(mocha({
       ui: 'bdd'

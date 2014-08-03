@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha",
+    "test": "./node_modules/mocha/bin/mocha test/test.js",
     "lint": "./node_modules/gulp/bin/gulp.js lint",
     "release": "./node_modules/gulp/bin/gulp.js publish"
   },
