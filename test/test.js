@@ -129,6 +129,48 @@ describe('remapify', function(){
 
   })
 
+  it('works with absolute `cwd` paths', function(done){
+    plugin(b, [{
+  	  src: './**/*.js'
+  	  , cwd: path.join(__dirname, 'fixtures/target')
+  	}])
+
+  	b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'a.js'
+        , 'b.js'
+        , 'nested/a.js'
+        , 'nested/c.js'
+      )
+      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+  	})
+  })
+
+  it('works with relative `cwd` paths', function(done){
+    plugin(b, [{
+      src: './**/*.js'
+      , cwd: './test/fixtures/target'
+    }])
+
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'a.js'
+        , 'b.js'
+        , 'nested/a.js'
+        , 'nested/c.js'
+      )
+      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+    })
+  })
+
   it('calls `b.transform` on all expanded aliases', function(){
     plugin(b, [{
       src: './**/*.js'
