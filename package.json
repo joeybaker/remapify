@@ -1,6 +1,6 @@
 {
   "name": "remapify",
-  "version": "0.1.6",
+  "version": "1.0.0",
   "description": "Alias directories of files for browserify",
   "main": "index.js",
   "directories": {
