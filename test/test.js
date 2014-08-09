@@ -17,6 +17,7 @@ describe('remapify', function(){
   beforeEach(function(){
     b = new Emitter()
     b.transform = sinon.stub()
+    b._extensions = ['.js', '.json']
     sinon.spy(b, 'emit')
     sinon.stub(aliasify, 'configure')
   })
@@ -110,7 +111,7 @@ describe('remapify', function(){
 
   it('aliases with and without the `.js` extension', function(done){
     plugin(b, [{
-      src: './**/*.js'
+      src: '**/*.js'
       , cwd: './test/fixtures/target'
     }])
 
@@ -126,7 +127,73 @@ describe('remapify', function(){
 
       done()
     })
+  })
 
+  it('works with non-standard extensions', function(done){
+    // setup
+    b._extensions = b._extensions.concat('.coffee')
+
+    plugin(b, [{
+      src: '**/*.coffee'
+      , cwd: './test/fixtures/target'
+    }])
+
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'c.coffee'
+        , 'c'
+      )
+      expandedAliases['c.coffee'].should.equal(path.resolve(__dirname, './fixtures/target/c.coffee'))
+      expandedAliases.c.should.equal(path.resolve(__dirname, './fixtures/target/c.coffee'))
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      // cleanup
+      b._extensions.pop()
+      done()
+    })
+  })
+
+  it('works with absolute `cwd` paths', function(done){
+    plugin(b, [{
+  	  src: './**/*.js'
+  	  , cwd: path.join(__dirname, 'fixtures/target')
+  	}])
+
+  	b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'a.js'
+        , 'b.js'
+        , 'nested/a.js'
+        , 'nested/c.js'
+      )
+      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+  	})
+  })
+
+  it('works with relative `cwd` paths', function(done){
+    plugin(b, [{
+      src: './**/*.js'
+      , cwd: './test/fixtures/target'
+    }])
+
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'a.js'
+        , 'b.js'
+        , 'nested/a.js'
+        , 'nested/c.js'
+      )
+      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+    })
   })
 
   it('calls `b.transform` on all expanded aliases', function(){
@@ -143,4 +210,5 @@ describe('remapify', function(){
       })
     })
   })
+
 })
