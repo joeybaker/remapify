@@ -156,11 +156,11 @@ describe('remapify', function(){
 
   it('works with absolute `cwd` paths', function(done){
     plugin(b, [{
-  	  src: './**/*.js'
-  	  , cwd: path.join(__dirname, 'fixtures/target')
-  	}])
+      src: './**/*.js'
+      , cwd: path.join(__dirname, 'fixtures/target')
+    }])
 
-  	b.on('remapify:files', function(files, expandedAliases){
+    b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
         'a.js'
         , 'b.js'
@@ -172,7 +172,7 @@ describe('remapify', function(){
       b.emit.should.not.have.been.calledWith('error')
 
       done()
-  	})
+    })
   })
 
   it('works with relative `cwd` paths', function(done){
@@ -208,6 +208,30 @@ describe('remapify', function(){
       setImmediate(function(){
         b.transform.should.have.been.calledOnce
       })
+    })
+  })
+
+  it('works with the filter option', function(done){
+    plugin(b, [{
+      src: './**/*.js'
+      , cwd: './test/fixtures/target'
+      , filter: function(alias, dirname, basename){
+        return path.join(dirname, '_' + basename)
+      }
+    }])
+
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        '_a.js'
+        , '_b.js'
+        , 'nested/_a.js'
+        , 'nested/_c.js'
+      )
+      expandedAliases['_a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
     })
   })
 
