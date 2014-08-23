@@ -5,6 +5,7 @@ var browserify = require('browserify')
   , remapify = require('../index.js')
   , path = require('path')
   , b = browserify(path.join(__dirname, 'fixtures', 'integration-entry.js'))
+  , options
 
 // running this file with node works, but running it through mocha doesn't IDK… whatever…
 // describe('remapify integration', function(){
@@ -25,9 +26,9 @@ var browserify = require('browserify')
 //   })
 // })
 
-b.plugin(remapify, [
+options = [
   {
-    src: '**/*.js' // glob for the files to remap
+    src: ['**/*.js', '!**/*.coffee', '!**/a.js'] // glob for the files to remap
     , expose: 'things' // this will expose `__dirname + /client/views/home.js` as `views/home.js`
     , cwd: path.join(__dirname, 'fixtures', 'target') // defaults to process.cwd()
   }
@@ -35,6 +36,12 @@ b.plugin(remapify, [
     src: './test/fixtures/target/**/*.js'
     , expose: 'nocwd'
   }
-])
+]
+
+options.config = {
+  verbose: true
+}
+
+b.plugin(remapify, options)
 
 b.bundle()
