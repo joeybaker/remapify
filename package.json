@@ -32,9 +32,9 @@
   },
   "homepage": "https://github.com/joeybaker/remapify",
   "dependencies": {
+    "aliasify": "^1.4.0",
     "lodash": "^2.4.1",
-    "glob": "^3.2.9",
-    "aliasify": "^1.4.0"
+    "multi-glob": "^0.4.0"
   },
   "devDependencies": {
     "browserify": "^4.2.3",
