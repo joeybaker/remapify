@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0
+* Reworked options so that `src` and `cwd` shouldn't conflict.
+* Leaned more heavily on `path` for probably windows compatibility.
+* now works with other extensions (e.g. `hbs`)
+
 ## 0.1.6
 Enhancement: now aliases with and without the `.js` extension. Allows for `require('a.js')` and `require('a')`, which are equivalent.
 
