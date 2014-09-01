@@ -196,7 +196,7 @@ describe('remapify', function(){
     })
   })
 
-  it('calls `b.transform` on all expanded aliases', function(){
+  it('calls `b.transform` on all expanded aliases', function(done){
     plugin(b, [{
       src: './**/*.js'
       , expose: 'path'
@@ -207,6 +207,7 @@ describe('remapify', function(){
       // wait for the callstack to clear since the event is triggered before b.transform is called.
       setImmediate(function(){
         b.transform.should.have.been.calledOnce
+        done()
       })
     })
   })
