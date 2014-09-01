@@ -41,6 +41,9 @@ b.plugin(remapify, [
     src: './client/views/**/*.js' // glob for the files to remap
     , expose: 'views' // this will expose `__dirname + /client/views/home.js` as `views/home.js`
     , cwd: __dirname // defaults to process.cwd()
+    , filter: function(alias, dirname, basename) { // customize file names
+      return path.join(dirname, basename.replace('foo', 'bar'))
+    }
   }
 ])
 
@@ -58,6 +61,21 @@ Replace the `cwd` of each file in `src` with this value.
 
 #### `cwd` (optional)
 Specify the 'current working directory' for the glob pattern to start from and for the `expose` option to replace.
+
+#### `filter` (optional)
+Alter the file name on the fly. For example, if you wanted to require `_avatar.js` as `require('avatar')` you could do:
+
+```js
+var path = require('path')
+b.plugin(remapify, [
+  {
+    src: './**/*.js'
+    , filter: function(alias, dirname, basename) {
+      return path.join(dirname, basename.replace(/^\_(.*)\.js$/, '$1'))
+    }
+  }
+]);
+```
 
 #### glob options
 All options specified by the [glob](https://www.npmjs.org/package/glob) module can be used as well.
