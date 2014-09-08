@@ -78,12 +78,18 @@ describe('remapify', function(){
 
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
-        path.join('path', 'a.js')
-        , path.join('path', 'b.js')
-        , path.join('path', 'nested', 'a.js')
-        , path.join('path', 'nested', 'c.js')
+        'path/a.js'
+        , 'path/b.js'
+        , 'path/nested/a.js'
+        , 'path/nested/c.js'
+        , 'path\\a.js'
+        , 'path\\b.js'
+        , 'path\\nested\\a.js'
+        , 'path\\nested\\c.js'
       )
-      expandedAliases[path.join('path', 'a.js')].should.equal('./test/fixtures/target/a.js')
+
+      expandedAliases['path/a.js'].should.equal('./test/fixtures/target/a.js')
+      expandedAliases['path\\a.js'].should.equal('./test/fixtures/target/a.js')
 
       b.emit.should.not.have.been.calledWith('error')
 
@@ -101,8 +107,10 @@ describe('remapify', function(){
       expandedAliases.should.contain.keys(
         'a.js'
         , 'b.js'
-        , path.join('nested', 'a.js')
-        , path.join('nested', 'c.js')
+        , 'nested/a.js'
+        , 'nested/c.js'
+        , 'nested\\a.js'
+        , 'nested\\c.js'
       )
       expandedAliases['a.js'].should.equal('./test/fixtures/target/a.js')
 
@@ -167,8 +175,10 @@ describe('remapify', function(){
       expandedAliases.should.contain.keys(
         'a.js'
         , 'b.js'
-        , path.join('nested', 'a.js')
-        , path.join('nested', 'c.js')
+        , 'nested/a.js'
+        , 'nested/c.js'
+        , 'nested\\a.js'
+        , 'nested\\c.js'
       )
       expandedAliases['a.js'].should.equal('./test/fixtures/target/a.js')
 
@@ -188,8 +198,10 @@ describe('remapify', function(){
       expandedAliases.should.contain.keys(
         'a.js'
         , 'b.js'
-        , path.join('nested', 'a.js')
-        , path.join('nested', 'c.js')
+        , 'nested/a.js'
+        , 'nested/c.js'
+        , 'nested\\a.js'
+        , 'nested\\c.js'
       )
       expandedAliases['a.js'].should.equal('./test/fixtures/target/a.js')
 
@@ -228,8 +240,10 @@ describe('remapify', function(){
       expandedAliases.should.contain.keys(
         '_a.js'
         , '_b.js'
-        , path.join('nested', '_a.js')
-        , path.join('nested', '_c.js')
+        , 'nested/_a.js'
+        , 'nested/_c.js'
+        , 'nested\\_a.js'
+        , 'nested\\_c.js'
       )
       expandedAliases['_a.js'].should.equal('./test/fixtures/target/a.js')
 
