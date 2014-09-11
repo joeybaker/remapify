@@ -249,7 +249,6 @@ describe('remapify', function(){
       }])
 
       b.on('remapify:files', function(files, expandedAliases){
-          console.log(JSON.stringify(expandedAliases));
           expandedAliases.should.contain.keys(
               'nested/a.js'
               , 'nested/a'
