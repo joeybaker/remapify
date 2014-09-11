@@ -239,4 +239,26 @@ describe('remapify', function(){
     })
   })
 
+  it('applies filters to aliases without extensions', function(done){
+      plugin(b, [{
+          src: './**/*.js'
+          , cwd: './test/fixtures/target'
+          , filter: function(alias){
+              return alias.replace(new RegExp('\\' + path.sep, 'g'), '/');
+          }
+      }])
+
+      b.on('remapify:files', function(files, expandedAliases){
+          console.log(JSON.stringify(expandedAliases));
+          expandedAliases.should.contain.keys(
+              'nested/a.js'
+              , 'nested/a'
+          )
+
+          b.emit.should.not.have.been.calledWith('error')
+
+          done()
+      })
+  })
+
 })
