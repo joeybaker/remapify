@@ -83,7 +83,7 @@ describe('remapify', function(){
         , path.join('path', 'nested', 'a.js')
         , path.join('path', 'nested', 'c.js')
       )
-      expandedAliases[path.join('path', 'a.js')].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+      expandedAliases[path.join('path', 'a.js')].should.equal('./test/fixtures/target/a.js')
 
       b.emit.should.not.have.been.calledWith('error')
 
@@ -104,7 +104,7 @@ describe('remapify', function(){
         , path.join('nested', 'a.js')
         , path.join('nested', 'c.js')
       )
-      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+      expandedAliases['a.js'].should.equal('./test/fixtures/target/a.js')
 
       b.emit.should.not.have.been.calledWith('error')
 
@@ -123,8 +123,8 @@ describe('remapify', function(){
         'a.js'
         , 'a'
       )
-      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
-      expandedAliases.a.should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+      expandedAliases['a.js'].should.equal('./test/fixtures/target/a.js')
+      expandedAliases.a.should.equal('./test/fixtures/target/a.js')
 
       b.emit.should.not.have.been.calledWith('error')
 
@@ -146,8 +146,8 @@ describe('remapify', function(){
         'c.coffee'
         , 'c'
       )
-      expandedAliases['c.coffee'].should.equal(path.resolve(__dirname, './fixtures/target/c.coffee'))
-      expandedAliases.c.should.equal(path.resolve(__dirname, './fixtures/target/c.coffee'))
+      expandedAliases['c.coffee'].should.equal('./test/fixtures/target/c.coffee')
+      expandedAliases.c.should.equal('./test/fixtures/target/c.coffee')
 
       b.emit.should.not.have.been.calledWith('error')
 
@@ -170,7 +170,7 @@ describe('remapify', function(){
         , path.join('nested', 'a.js')
         , path.join('nested', 'c.js')
       )
-      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+      expandedAliases['a.js'].should.equal('./test/fixtures/target/a.js')
 
       b.emit.should.not.have.been.calledWith('error')
 
@@ -191,7 +191,7 @@ describe('remapify', function(){
         , path.join('nested', 'a.js')
         , path.join('nested', 'c.js')
       )
-      expandedAliases['a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+      expandedAliases['a.js'].should.equal('./test/fixtures/target/a.js')
 
       b.emit.should.not.have.been.calledWith('error')
 
@@ -231,7 +231,7 @@ describe('remapify', function(){
         , path.join('nested', '_a.js')
         , path.join('nested', '_c.js')
       )
-      expandedAliases['_a.js'].should.equal(path.resolve(__dirname, './fixtures/target/a.js'))
+      expandedAliases['_a.js'].should.equal('./test/fixtures/target/a.js')
 
       b.emit.should.not.have.been.calledWith('error')
 
