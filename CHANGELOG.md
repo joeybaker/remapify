@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.0
+* `path.join` should no longer be required for cross-platform use.
+
+## 1.2.0
+* better relative path handling
+
+## 1.1.1
+* Tests now pass on windows again
+
+## 1.1.0
+* Adds ability to filter out files from aliasing
+
 ## 1.0.0
 * Reworked options so that `src` and `cwd` shouldn't conflict.
 * Leaned more heavily on `path` for probably windows compatibility.
