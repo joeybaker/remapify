@@ -1,6 +1,6 @@
 {
   "name": "remapify",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Alias directories of files for browserify",
   "main": "index.js",
   "directories": {
@@ -34,7 +34,7 @@
   "dependencies": {
     "lodash": "^2.4.1",
     "glob": "^3.2.9",
-    "aliasify": "^1.4.0"
+    "aliasify": "^1.5.1"
   },
   "devDependencies": {
     "browserify": "^4.2.3",
