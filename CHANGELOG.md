@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.1
+* More npmignoring
+
 ## 1.4.0
 * Updated aliasify to support `jsx` files.
 
