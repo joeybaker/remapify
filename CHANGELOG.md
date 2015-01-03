@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.0
+* Updated aliasify to support `jsx` files.
+
 ## 1.3.0
 * `path.join` should no longer be required for cross-platform use.
 
