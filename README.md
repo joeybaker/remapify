@@ -10,21 +10,20 @@ A [Browserify](https://github.com/substack/node-browserify) plugin to map whole 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
-- [Remapify](#remapify)
-  - [Why](#why)
-  - [Usage](#usage)
-    - [options `[{}]`](#options-)
-      - [`src`](#src)
-      - [`expose`](#expose)
-      - [`cwd` (optional)](#cwd-optional)
-      - [`filter` (optional)](#filter-optional)
-      - [glob options](#glob-options)
-    - [events](#events)
-      - [`b.on('remapify:file', function(file, expandedAliases, globber, pattern){})`](#bonremapifyfile-functionfile-expandedaliases-globber-pattern)
-      - [`b.on('remapify:files', function(file, expandedAliases, globber, pattern){})`](#bonremapifyfiles-functionfile-expandedaliases-globber-pattern)
-  - [Tests](#tests)
-  - [Development](#development)
-  - [Changelog](#changelog)
+- [Why](#why)
+- [Usage](#usage)
+  - [options `[{}]`](#options-)
+    - [`src`](#src)
+    - [`expose`](#expose)
+    - [`cwd` (optional)](#cwd-optional)
+    - [`filter` (optional)](#filter-optional)
+    - [glob options](#glob-options)
+  - [events](#events)
+    - [`b.on('remapify:file', function(file, expandedAliases, globber, pattern){})`](#bonremapifyfile-functionfile-expandedaliases-globber-pattern)
+    - [`b.on('remapify:files', function(file, expandedAliases, globber, pattern){})`](#bonremapifyfiles-functionfile-expandedaliases-globber-pattern)
+- [Tests](#tests)
+- [Development](#development)
+- [Changelog](#changelog)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
