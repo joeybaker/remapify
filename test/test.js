@@ -33,7 +33,6 @@ describe('remapify', function(){
 
   it('gets all the files from a glob pattern', function(done){
     should.exist(b)
-    plugin(b, [{src: './test/fixtures/target/**/*.js', expose: 'path'}])
 
     b.on('remapify:files', function(files){
       files.should.deep.equal(
@@ -47,15 +46,11 @@ describe('remapify', function(){
 
       done()
     })
+
+    plugin(b, [{src: './test/fixtures/target/**/*.js', expose: 'path'}])
   })
 
   it('works with the `cwd` option', function(done){
-    plugin(b, [{
-      src: './fixtures/target/**/*.js'
-      , expose: 'path'
-      , cwd: './test'
-    }])
-
     b.on('remapify:files', function(files){
       files.should.deep.equal(
         ['./fixtures/target/a.js'
@@ -68,15 +63,15 @@ describe('remapify', function(){
 
       done()
     })
+
+    plugin(b, [{
+      src: './fixtures/target/**/*.js'
+      , expose: 'path'
+      , cwd: './test'
+    }])
   })
 
   it('exposes the files under a different alias', function(done){
-    plugin(b, [{
-      src: './**/*.js'
-      , expose: 'path'
-      , cwd: './test/fixtures/target'
-    }])
-
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
         'path/a.js'
@@ -96,14 +91,15 @@ describe('remapify', function(){
 
       done()
     })
+
+    plugin(b, [{
+      src: './**/*.js'
+      , expose: 'path'
+      , cwd: './test/fixtures/target'
+    }])
   })
 
   it('works without the expose option', function(done){
-    plugin(b, [{
-      src: './**/*.js'
-      , cwd: './test/fixtures/target'
-    }])
-
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
         'a.js'
@@ -119,14 +115,14 @@ describe('remapify', function(){
 
       done()
     })
+
+    plugin(b, [{
+      src: './**/*.js'
+      , cwd: './test/fixtures/target'
+    }])
   })
 
   it('aliases with and without the `.js` extension', function(done){
-    plugin(b, [{
-      src: '**/*.js'
-      , cwd: './test/fixtures/target'
-    }])
-
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
         'a.js'
@@ -139,16 +135,16 @@ describe('remapify', function(){
 
       done()
     })
+
+    plugin(b, [{
+      src: '**/*.js'
+      , cwd: './test/fixtures/target'
+    }])
   })
 
   it('works with non-standard extensions', function(done){
     // setup
     b._extensions = b._extensions.concat('.coffee')
-
-    plugin(b, [{
-      src: '**/*.coffee'
-      , cwd: './test/fixtures/target'
-    }])
 
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
@@ -164,37 +160,37 @@ describe('remapify', function(){
       b._extensions.pop()
       done()
     })
+
+    plugin(b, [{
+      src: '**/*.coffee'
+      , cwd: './test/fixtures/target'
+    }])
   })
 
   it('works with absolute `cwd` paths', function(done){
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'a.js'
+        , 'b.js'
+        , 'nested/a.js'
+        , 'nested/c.js'
+        , 'nested\\a.js'
+        , 'nested\\c.js'
+      )
+      expandedAliases['a.js'].split(path.sep).join('/').should.equal('./test/fixtures/target/a.js')
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+    })
+
     plugin(b, [{
       src: './**/*.js'
       , cwd: path.join(__dirname, 'fixtures/target')
     }])
-
-    b.on('remapify:files', function(files, expandedAliases){
-      expandedAliases.should.contain.keys(
-        'a.js'
-        , 'b.js'
-        , 'nested/a.js'
-        , 'nested/c.js'
-        , 'nested\\a.js'
-        , 'nested\\c.js'
-      )
-      expandedAliases['a.js'].split(path.sep).join('/').should.equal('./test/fixtures/target/a.js')
-
-      b.emit.should.not.have.been.calledWith('error')
-
-      done()
-    })
   })
 
   it('works with relative `cwd` paths', function(done){
-    plugin(b, [{
-      src: './**/*.js'
-      , cwd: './test/fixtures/target'
-    }])
-
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
         'a.js'
@@ -210,15 +206,14 @@ describe('remapify', function(){
 
       done()
     })
+
+    plugin(b, [{
+      src: './**/*.js'
+      , cwd: './test/fixtures/target'
+    }])
   })
 
   it('calls `b.transform` on all expanded aliases', function(done){
-    plugin(b, [{
-      src: './**/*.js'
-      , expose: 'path'
-      , cwd: './test/fixtures/target'
-    }])
-
     b.on('remapify:files', function(){
       // wait for the callstack to clear since the event is triggered before b.transform is called.
       setImmediate(function(){
@@ -226,17 +221,15 @@ describe('remapify', function(){
         done()
       })
     })
+
+    plugin(b, [{
+      src: './**/*.js'
+      , expose: 'path'
+      , cwd: path.join(__dirname, 'fixtures', 'target')
+    }])
   })
 
   it('works with the filter option', function(done){
-    plugin(b, [{
-      src: './**/*.js'
-      , cwd: './test/fixtures/target'
-      , filter: function(alias, dirname, basename){
-        return path.join(dirname, '_' + basename)
-      }
-    }])
-
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
         '_a.js'
@@ -252,6 +245,13 @@ describe('remapify', function(){
 
       done()
     })
-  })
 
+    plugin(b, [{
+      src: './**/*.js'
+      , cwd: './test/fixtures/target'
+      , filter: function(alias, dirname, basename){
+        return path.join(dirname, '_' + basename)
+      }
+    }])
+  })
 })
