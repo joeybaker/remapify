@@ -79,7 +79,7 @@ function generate_git_changelog(){
 
 function git_ammend_tag(){
   git add $(find_changelog_file)
-  git commit --amend --no-edit
+  git commit --amend --no-edit --no-verify
   git tag $(find_last_git_tag) -f
 }
 
