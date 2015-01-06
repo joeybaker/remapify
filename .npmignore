@@ -12,3 +12,5 @@ CHANGELOG.*
 CONTRIBUTING.*
 gulpfile.*
 test/
+
+.jscsrc
