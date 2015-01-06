@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.4.3 | 2015-01-05
+* Fix order of test running
+* test should only run tests
+
 ## v1.4.2 | 2015-01-05
 * remove gulp
 * update glob
@@ -39,5 +43,6 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
 
 
