@@ -4,7 +4,7 @@ node_js:
   - "0.10"
 
 script:
-  - "gulp test"
+  - "npm lint && npm test"
 
 notifications:
   email: false
