@@ -102,9 +102,10 @@ All tests are mocha. You can run them with either `npm test` or `mocha test`.
 
 ## Development
 
-* TDD with `nodemon -x npm -- test`
+* Git hooks are installed to make sure nothing goes to wacky.
+* TDD with `npm run tdd`
 * Release with `npm run release`
-* Releasing runs jscs and jshint. You can manually run with `npm run lint`
+* Testing runs jscs and jshint. You can manually run with `npm run lint`
 
 ## Changelog
 See `CHANGELOG.md`

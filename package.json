@@ -7,9 +7,22 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha test/test.js",
-    "lint": "./node_modules/gulp/bin/gulp.js lint",
-    "release": "./node_modules/gulp/bin/gulp.js publish"
+    "test": "npm run lint && mocha test/test.js",
+    "tdd": "nodemon -x npm -i node_modules/ -- test",
+    "note1": "we can't have nice things. prepublish also runs on npm install https://github.com/npm/npm/issues/6394",
+    "prePublish": "npm run requireGitClean && npm prune && npm run nsp && npm run dmn && npm run doctoc",
+    "jscs": "jscs .",
+    "jshint": "jshint --reporter node_modules/jshint-stylish/stylish.js",
+    "lint": "npm run jshint && npm run jscs",
+    "requireGitClean": "source ./scripts.sh && git_require_clean_work_tree",
+    "nsp": "nsp audit-package",
+    "note2": "--no-verify skips the commit hook",
+    "dmn": "dmn gen -f . && if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != '' ]]; then git add .npmignore && git commit --no-verify -m'update npmignore'; fi",
+    "doctoc": "doctoc README.md && doctoc CONTRIBUTING.md && if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != '' ]]; then git add README.md CONTRIBUTING.md && git commit --no-verify -m'table of contents update'; fi",
+    "gitPull": "git pull --rebase origin master",
+    "gitPush": "git push --follow-tags",
+    "note3": "npm script args kinda suck, we need to deal them in a real script",
+    "release": "source ./scripts.sh && npm_release"
   },
   "repository": {
     "type": "git",
@@ -25,33 +38,44 @@
     "commonjs",
     "folder"
   ],
-  "author": "Joey Baker <joey@byjoeybaker.com>",
-  "license": "ISC",
+  "authors": [
+    {
+      "name": "Joey Baker",
+      "email": "joey@byjoeybaker.com",
+      "url": "https://byjoeybaker.com"
+    }
+  ],
+  "config": {
+    "notes": "important to correct the path of npm so that the git hook doesn't error",
+    "ghooks": {
+      "pre-commit": "PATH=$PATH:/usr/local/bin:/usr/local/sbin && npm run lint",
+      "pre-push": "PATH=$PATH:/usr/local/bin:/usr/local/sbin && npm run nsp && npm run dmn && npm run doctoc && npm test",
+      "update": "PATH=$PATH:/usr/local/bin:/usr/local/sbin && npm install"
+    }
+  },
+  "license": "Artistic-2.0",
   "bugs": {
     "url": "https://github.com/joeybaker/remapify/issues"
   },
   "homepage": "https://github.com/joeybaker/remapify",
   "dependencies": {
-    "lodash": "^2.4.1",
-    "glob": "^3.2.9",
-    "aliasify": "^1.5.1"
+    "aliasify": "^1.5.1",
+    "glob": "^4.3.2",
+    "lodash": "^2.4.1"
   },
   "devDependencies": {
     "browserify": "^4.2.3",
     "chai": "^1.9.0",
-    "gulp": "^3.5.5",
-    "gulp-bump": "^0.1.6",
-    "gulp-cached": "0.0.3",
-    "gulp-exec": "^1.0.4",
-    "gulp-git": "^0.3.3",
-    "gulp-jscs": "^0.3.2",
-    "gulp-jshint": "^1.5.0",
-    "gulp-mocha": "^0.4.1",
-    "gulp-todo": "^0.1.5",
-    "gulp-util": "~2.2.14",
-    "jshint-stylish": "^0.1.5",
+    "dmn": "^1.0.5",
+    "doctoc": "^0.7.1",
+    "ghooks": "^0.2.2",
+    "jscs": "^1.7.3",
+    "jshint": "^2.5.8",
+    "jshint-stylish": "^1.0.0",
     "minimist": "0.0.8",
     "mocha": "^1.17.1",
+    "nodemon": "^1.2.1",
+    "nsp": "^0.4.2",
     "sinon": "^1.8.2",
     "sinon-chai": "^2.5.0"
   },

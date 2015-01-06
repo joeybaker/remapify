@@ -14,6 +14,7 @@ var sinon = require('sinon')
 
 chai.use(require('sinon-chai'))
 
+// jscs:disable disallowAnonymousFunctions
 describe('remapify', function(){
   var b
 
