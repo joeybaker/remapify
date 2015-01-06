@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.4.2 | 2015-01-05
+* remove gulp
+* update glob
+* many new npm scripts
+
 ## 1.4.1
 * More npmignoring
 
@@ -34,3 +39,4 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
