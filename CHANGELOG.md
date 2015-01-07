@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.4.4 | 2015-01-06
+* Add a test for a src with a dir #24
+* Set the configDir option of aliasify #24
+* fix travis builds
+
 ## v1.4.3 | 2015-01-05
 * Fix order of test running
 * test should only run tests
@@ -43,6 +48,7 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
 
 
 
