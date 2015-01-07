@@ -213,6 +213,29 @@ describe('remapify', function(){
     }])
   })
 
+  it('works with a `src` that has more than a pattern', function(done){
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'target/a.js'
+        , 'target/b.js'
+        , 'target/nested/a.js'
+        , 'target/nested/c.js'
+        , 'target\\nested\\a.js'
+        , 'target\\nested\\c.js'
+      )
+      expandedAliases['target/a.js'].split(path.sep).join('/').should.equal('./test/fixtures/target/a.js')
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+    })
+
+    plugin(b, [{
+      src: path.join('target', '**/*.js')
+      , cwd: path.join('./test', 'fixtures')
+    }])
+  })
+
   it('calls `b.transform` on all expanded aliases', function(done){
     b.on('remapify:files', function(){
       // wait for the callstack to clear since the event is triggered before b.transform is called.
