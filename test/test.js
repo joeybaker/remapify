@@ -258,8 +258,8 @@ describe('remapify', function(){
   it('applies filters to aliases without extensions', function(done){
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
-        'nested/a.js'
-        , 'nested/a'
+        path.join('foo', 'a.js'),
+        path.join('foo', 'a')
       )
 
       b.emit.should.not.have.been.calledWith('error')
@@ -271,7 +271,7 @@ describe('remapify', function(){
       src: './**/*.js'
       , cwd: './test/fixtures/target'
       , filter: function(alias){
-        return alias.replace(new RegExp('\\' + path.sep, 'g'), '/');
+        return alias.replace(/nested/, 'foo');
       }
     }])
   })
