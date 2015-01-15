@@ -258,8 +258,8 @@ describe('remapify', function(){
   it('applies filters to aliases without extensions', function(done){
     b.on('remapify:files', function(files, expandedAliases){
       expandedAliases.should.contain.keys(
-        path.join('foo', 'a.js'),
-        path.join('foo', 'a')
+        path.join('foo', 'a.js')
+        , path.join('foo', 'a')
       )
 
       b.emit.should.not.have.been.calledWith('error')
@@ -276,4 +276,3 @@ describe('remapify', function(){
     }])
   })
 })
-
