@@ -1,3 +1,20 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Contribution Guidelines](#contribution-guidelines)
+  - [Adding Code](#adding-code)
+    - [Process](#process)
+  - [Creating issues](#creating-issues)
+    - [Bug Issues](#bug-issues)
+    - [Feature Issues](#feature-issues)
+    - [Assignees](#assignees)
+    - [Milestones](#milestones)
+    - [Labels](#labels)
+    - [Some good ways to make sure it's not missed:](#some-good-ways-to-make-sure-its-not-missed)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Contribution Guidelines
 
 Please, [behave yourself](https://github.com/gulpjs/gulp/blob/master/CONTRIBUTING.md#conduct).

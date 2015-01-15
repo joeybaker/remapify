@@ -1,2 +1,16 @@
 gulpfile.js
 .travis.yml
+
+
+.DS_Store
+.editorconfig
+.git*
+.jscs.json
+.jshint*
+.npmignore
+CHANGELOG.*
+CONTRIBUTING.*
+gulpfile.*
+test/
+
+.jscsrc

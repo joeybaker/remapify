@@ -1,5 +1,37 @@
 # Changelog
 
+## v1.4.4 | 2015-01-06
+* Add a test for a src with a dir #24
+* Set the configDir option of aliasify #24
+* fix travis builds
+
+## v1.4.3 | 2015-01-05
+* Fix order of test running
+* test should only run tests
+
+## v1.4.2 | 2015-01-05
+* remove gulp
+* update glob
+* many new npm scripts
+
+## 1.4.1
+* More npmignoring
+
+## 1.4.0
+* Updated aliasify to support `jsx` files.
+
+## 1.3.0
+* `path.join` should no longer be required for cross-platform use.
+
+## 1.2.0
+* better relative path handling
+
+## 1.1.1
+* Tests now pass on windows again
+
+## 1.1.0
+* Adds ability to filter out files from aliasing
+
 ## 1.0.0
 * Reworked options so that `src` and `cwd` shouldn't conflict.
 * Leaned more heavily on `path` for probably windows compatibility.
@@ -16,3 +48,7 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
+
+
+

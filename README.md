@@ -1,9 +1,31 @@
 Remapify
 =======================
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/joeybaker/remapify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![NPM](https://nodei.co/npm/remapify.png)](https://nodei.co/npm/remapify/) [![Build Status](https://travis-ci.org/joeybaker/remapify.png?branch=master)](https://travis-ci.org/joeybaker/remapify)
 
 A [Browserify](https://github.com/substack/node-browserify) plugin to map whole directories as different directories to browserify. This is useful if you have a common batch of files that you don't want to have to refer to relatively all the time.
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Why](#why)
+- [Usage](#usage)
+  - [options `[{}]`](#options-)
+    - [`src`](#src)
+    - [`expose`](#expose)
+    - [`cwd` (optional)](#cwd-optional)
+    - [`filter` (optional)](#filter-optional)
+    - [glob options](#glob-options)
+  - [events](#events)
+    - [`b.on('remapify:file', function(file, expandedAliases, globber, pattern){})`](#bonremapifyfile-functionfile-expandedaliases-globber-pattern)
+    - [`b.on('remapify:files', function(file, expandedAliases, globber, pattern){})`](#bonremapifyfiles-functionfile-expandedaliases-globber-pattern)
+- [Tests](#tests)
+- [Development](#development)
+- [Changelog](#changelog)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Why
 
@@ -101,9 +123,10 @@ All tests are mocha. You can run them with either `npm test` or `mocha test`.
 
 ## Development
 
-* TDD with `nodemon -x npm -- test`
+* Git hooks are installed to make sure nothing goes to wacky.
+* TDD with `npm run tdd`
 * Release with `npm run release`
-* Releasing runs jscs and jshint. You can manually run with `npm run lint`
+* Testing runs jscs and jshint. You can manually run with `npm run lint`
 
 ## Changelog
 See `CHANGELOG.md`
