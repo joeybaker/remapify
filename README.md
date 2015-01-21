@@ -19,7 +19,6 @@ A [Browserify](https://github.com/substack/node-browserify) plugin to map whole 
     - [`filter` (optional)](#filter-optional)
     - [glob options](#glob-options)
   - [events](#events)
-    - [`b.on('remapify:file', function(file, expandedAliases, globber, pattern){})`](#bonremapifyfile-functionfile-expandedaliases-globber-pattern)
     - [`b.on('remapify:files', function(file, expandedAliases, globber, pattern){})`](#bonremapifyfiles-functionfile-expandedaliases-globber-pattern)
 - [Tests](#tests)
 - [Development](#development)
