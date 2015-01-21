@@ -1,5 +1,5 @@
 /* global describe, it, beforeEach, afterEach */
-'use strict';
+'use strict'
 
 // NOTE: when testing paths, it's important to use `path.join` for
 // windows compatibility
@@ -7,7 +7,6 @@
 var sinon = require('sinon')
   , chai = require('chai')
   , plugin = require('../lib/remapify.js')
-  , aliasify = require('aliasify')
   , should = chai.should()
   , path = require('path')
   , Emitter = require('events').EventEmitter
@@ -20,15 +19,14 @@ describe('remapify', function(){
 
   beforeEach(function(){
     b = new Emitter()
-    b.transform = sinon.stub()
+    b._mdeps = {options: {modules: {}}}
+
     b._extensions = ['.js', '.json']
     sinon.spy(b, 'emit')
-    sinon.stub(aliasify, 'configure')
   })
 
   afterEach(function(){
     b.emit.restore()
-    aliasify.configure.restore()
   })
 
   it('gets all the files from a glob pattern', function(done){
@@ -236,20 +234,21 @@ describe('remapify', function(){
     }])
   })
 
-  it('calls `b.transform` on all expanded aliases', function(done){
-    b.on('remapify:files', function(){
-      // wait for the callstack to clear since the event is triggered before b.transform is called.
-      setImmediate(function(){
-        b.transform.should.have.been.calledOnce
-        done()
-      })
-    })
-
+  it('adds all expanded aliases to module-deps modules', function(done){
     plugin(b, [{
       src: './**/*.js'
-      , expose: 'path'
       , cwd: path.join(__dirname, 'fixtures', 'target')
     }])
+
+    b._mdeps.options.modules.should.contain.keys(
+        'a.js'
+        , 'b.js'
+        , 'nested/a.js'
+        , 'nested/c.js'
+        , 'nested\\a.js'
+        , 'nested\\c.js'
+    )
+    done()
   })
 
   it('works with the filter option', function(done){

@@ -1,8 +1,5 @@
-Remapify
+Remapify [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/joeybaker/remapify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![NPM](https://nodei.co/npm/remapify.png)](https://nodei.co/npm/remapify/) [![Build Status](https://travis-ci.org/joeybaker/remapify.png?branch=master)](https://travis-ci.org/joeybaker/remapify)
 =======================
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/joeybaker/remapify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[![NPM](https://nodei.co/npm/remapify.png)](https://nodei.co/npm/remapify/) [![Build Status](https://travis-ci.org/joeybaker/remapify.png?branch=master)](https://travis-ci.org/joeybaker/remapify)
 
 A [Browserify](https://github.com/substack/node-browserify) plugin to map whole directories as different directories to browserify. This is useful if you have a common batch of files that you don't want to have to refer to relatively all the time.
 
@@ -104,18 +101,12 @@ All options specified by the [glob](https://www.npmjs.org/package/glob) module c
 ### events
 Remapify will emit events while processing. This is implemented to make testing easier, but… maybe it'll be useful for other things. The events are emitted on the bundle.
 
-#### `b.on('remapify:file', function(file, expandedAliases, globber, pattern){})`
-Emitted when the globbing finds a file to remap.
-
-* **`file`** The path to the file
-* **`expandedAliases`** The list of files and what they will be exposed as as found so far. Includes this file.
-* **`globber`** The full [glob instance](https://github.com/isaacs/node-glob#properties).
-* **`pattern`** The glob pattern in use.
-
-#### `b.on('remapify:files', function(file, expandedAliases, globber, pattern){})`
+#### `b.on('remapify:files', function(file, expandedAliases, pattern){})`
 Emitted when all files have been found to be remapped.
 
-The arguments are the same as above.
+* **`files`** The files found to alias
+* **`expandedAliases`** The list of files and what they will be exposed as as found so far. Includes this file.
+* **`pattern`** The glob pattern in use.
 
 ## Tests
 All tests are mocha. You can run them with either `npm test` or `mocha test`. For developing, the tests can be run on file change with `npm run tdd`
