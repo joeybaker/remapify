@@ -119,14 +119,14 @@ Emitted when all files have been found to be remapped.
 The arguments are the same as above.
 
 ## Tests
-All tests are mocha. You can run them with either `npm test` or `mocha test`.
+All tests are mocha. You can run them with either `npm test` or `mocha test`. For developing, the tests can be run on file change with `npm run tdd`
 
 ## Development
 
 * Git hooks are installed to make sure nothing goes to wacky.
 * TDD with `npm run tdd`
 * Release with `npm run release`
-* Testing runs jscs and jshint. You can manually run with `npm run lint`
+* Testing runs eslint. You can manually run with `npm run lint`
 
 ## Changelog
 See `CHANGELOG.md`
