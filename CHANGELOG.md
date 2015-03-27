@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.0 | 2015-03-26
+* breaking: The `remapify:files` event no longer emits the glob instance
+* change: globbing is no longer async. Browserify updates seem to make this impossible
+* change: no longer depends on `aliasify`. We now just hook directly into `module-deps`
+* add: integration tests
+* dev: replace jshint and jscs with eslint
+* dev: add a more stream-lined release process
+
 ## v1.4.4 | 2015-01-06
 * Add a test for a src with a dir #24
 * Set the configDir option of aliasify #24
@@ -48,6 +56,7 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
 
 
 
