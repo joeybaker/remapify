@@ -140,6 +140,24 @@ describe('remapify', function(){
     }])
   })
 
+  it('gracefully handles files unknown to browserify', function(done){
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'd.rt'
+      )
+      expandedAliases['d.rt'].split(path.sep).join('/').should.equal('./test/fixtures/target/d.rt')
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+    })
+
+    plugin(b, [{
+      src: '**/*.rt'
+      , cwd: './test/fixtures/target'
+    }])
+  })
+
   it('works with non-standard extensions', function(done){
     // setup
     b._extensions = b._extensions.concat('.coffee')
