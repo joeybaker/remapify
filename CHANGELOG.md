@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.1 | 2015-04-19
+* unkonwn filetypes can now be aliased. #36
+
 ## v2.0.0 | 2015-03-26
 * breaking: The `remapify:files` event no longer emits the glob instance
 * change: globbing is no longer async. Browserify updates seem to make this impossible
@@ -56,6 +59,7 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
 
 
 
