@@ -158,6 +158,26 @@ describe('remapify', function(){
     }])
   })
 
+  it('looks for files in multiple directories, in precedence', function(done){
+    b.on('remapify:files', function(files, expandedAliases){
+      expandedAliases.should.contain.keys(
+        'a.js',
+        'b.js'
+      )
+      expandedAliases['a.js'].split(path.sep).join('/').should.equal('./test/fixtures/target2/a.js')
+      expandedAliases['b.js'].split(path.sep).join('/').should.equal('./test/fixtures/target/b.js')
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+    })
+
+    plugin(b, [{
+      src: '**/*.js'
+      , cwd: ['./test/fixtures/target2', './test/fixtures/target']
+    }])
+  })
+
   it('works with non-standard extensions', function(done){
     // setup
     b._extensions = b._extensions.concat('.coffee')
