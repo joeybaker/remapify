@@ -1,26 +1,4 @@
 {
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "binaryLiterals": true,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": true,
-    "modules": false,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": true,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "octalLiterals": true,
-    "regexUFlag": true,
-    "regexYFlag": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "unicodeCodePointEscapes": true,
-    "globalReturn": true
-  },
   "env": {
     "node": true
   },
@@ -35,7 +13,7 @@
     "no-empty-class": 2,
     "no-ex-assign": 2,
     "no-extra-boolean-cast": 2,
-    "no-extra-parens": 2,
+    "no-extra-parens": 1,
     "no-extra-semi": 2,
     "no-func-assign": 2,
     "no-inner-declarations": 2,
@@ -163,7 +141,7 @@
     "new-cap": 2,
     "new-parens": 2,
     "no-array-constructor": 0,
-    "no-inline-comments": 2,
+    "no-inline-comments": 1,
     "no-lonely-if": 0,
     "no-mixed-spaces-and-tabs": 2,
     "no-multiple-empty-lines": 2,
@@ -175,7 +153,14 @@
     "no-trailing-spaces": 2,
     "no-underscore-dangle": 0,
     "no-wrap-func": 2,
-    "one-var": 1,
+    "one-var": [
+      1,
+      {
+        "var": "always",
+        "let": "never",
+        "const": "never"
+      }
+    ],
     "operator-assignment": [
       2,
       "always"
@@ -202,9 +187,9 @@
       "always"
     ],
     "space-before-blocks": 0,
-    "space-before-function-parentheses": [
+    "space-before-function-paren": [
       1,
-      "never"
+      "always"
     ],
     "space-in-brackets": [
       1,
