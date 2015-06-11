@@ -56,23 +56,23 @@
   },
   "homepage": "https://github.com/joeybaker/remapify",
   "dependencies": {
-    "glob": "^5.0.3",
-    "lodash": "^3.5.0"
+    "glob": "^5.0.10",
+    "lodash": "^3.9.3"
   },
   "devDependencies": {
-    "browserify": "^9.0.3",
-    "chai": "^1.9.0",
-    "dmn": "^1.0.5",
-    "doctoc": "^0.7.1",
-    "eslint": "^0.17.1",
-    "ghooks": "^0.2.2",
+    "browserify": "^10.2.4",
+    "chai": "^3.0.0",
+    "dmn": "^1.0.10",
+    "doctoc": "^0.13.0",
+    "eslint": "^0.22.1",
+    "ghooks": "^0.3.2",
     "in-publish": "^1.1.1",
-    "minimist": "0.0.8",
-    "mocha": "^1.17.1",
+    "minimist": "1.1.1",
+    "mocha": "^2.2.5",
     "nodemon": "^1.3.7",
-    "nsp": "^0.4.2",
-    "sinon": "^1.8.2",
-    "sinon-chai": "^2.5.0"
+    "nsp": "^1.0.1",
+    "sinon": "^1.15.3",
+    "sinon-chai": "^2.8.0"
   },
   "peerDependencies": {
     "browserify": ">=7.0.0"
