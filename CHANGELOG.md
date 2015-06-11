@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.2 | 2015-06-11
+* fix: reapply our alias map if the underlying browserify pipeline is reset.
+This fixes compatibility with watchify.
+* internal: update deps
+* internal: update style guide
+
 ## v2.0.1 | 2015-04-19
 * unkonwn filetypes can now be aliased. #36
 
@@ -59,6 +65,7 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
 
 
 
