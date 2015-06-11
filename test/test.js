@@ -294,4 +294,34 @@ describe('remapify', function () {
       }
     }])
   })
+
+  it('continues to work after a reset event', function (done) {
+    plugin(b, [{
+      src: './**/*.js'
+      , cwd: path.join(__dirname, 'fixtures', 'target')
+    }])
+
+    b._mdeps.options.modules.should.contain.keys(
+        'a.js'
+        , 'b.js'
+        , 'nested/a.js'
+        , 'nested/c.js'
+        , 'nested\\a.js'
+        , 'nested\\c.js'
+    )
+
+    b.emit('reset')
+
+    setImmediate(function () {
+      b._mdeps.options.modules.should.contain.keys(
+          'a.js'
+          , 'b.js'
+          , 'nested/a.js'
+          , 'nested/c.js'
+          , 'nested\\a.js'
+          , 'nested\\c.js'
+      )
+      done()
+    })
+  })
 })
