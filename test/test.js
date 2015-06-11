@@ -14,10 +14,10 @@ var sinon = require('sinon')
 chai.use(require('sinon-chai'))
 
 // jscs:disable disallowAnonymousFunctions
-describe('remapify', function(){
+describe('remapify', function () {
   var b
 
-  beforeEach(function(){
+  beforeEach(function () {
     b = new Emitter()
     b._mdeps = {options: {modules: {}}}
 
@@ -25,14 +25,14 @@ describe('remapify', function(){
     sinon.spy(b, 'emit')
   })
 
-  afterEach(function(){
+  afterEach(function () {
     b.emit.restore()
   })
 
-  it('gets all the files from a glob pattern', function(done){
+  it('gets all the files from a glob pattern', function (done) {
     should.exist(b)
 
-    b.on('remapify:files', function(files){
+    b.on('remapify:files', function (files) {
       files.should.deep.equal(
         ['./test/fixtures/target/a.js'
         , './test/fixtures/target/b.js'
@@ -48,8 +48,8 @@ describe('remapify', function(){
     plugin(b, [{src: './test/fixtures/target/**/*.js', expose: 'path'}])
   })
 
-  it('works with the `cwd` option', function(done){
-    b.on('remapify:files', function(files){
+  it('works with the `cwd` option', function (done) {
+    b.on('remapify:files', function (files) {
       files.should.deep.equal(
         ['./fixtures/target/a.js'
         , './fixtures/target/b.js'
@@ -69,8 +69,8 @@ describe('remapify', function(){
     }])
   })
 
-  it('exposes the files under a different alias', function(done){
-    b.on('remapify:files', function(files, expandedAliases){
+  it('exposes the files under a different alias', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         'path/a.js'
         , 'path/b.js'
@@ -97,8 +97,8 @@ describe('remapify', function(){
     }])
   })
 
-  it('works without the expose option', function(done){
-    b.on('remapify:files', function(files, expandedAliases){
+  it('works without the expose option', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         'a.js'
         , 'b.js'
@@ -120,8 +120,8 @@ describe('remapify', function(){
     }])
   })
 
-  it('aliases with and without the `.js` extension', function(done){
-    b.on('remapify:files', function(files, expandedAliases){
+  it('aliases with and without the `.js` extension', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         'a.js'
         , 'a'
@@ -140,8 +140,8 @@ describe('remapify', function(){
     }])
   })
 
-  it('gracefully handles files unknown to browserify', function(done){
-    b.on('remapify:files', function(files, expandedAliases){
+  it('gracefully handles files unknown to browserify', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         'd.rt'
       )
@@ -158,11 +158,11 @@ describe('remapify', function(){
     }])
   })
 
-  it('works with non-standard extensions', function(done){
+  it('works with non-standard extensions', function (done) {
     // setup
     b._extensions = b._extensions.concat('.coffee')
 
-    b.on('remapify:files', function(files, expandedAliases){
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         'c.coffee'
         , 'c'
@@ -183,8 +183,8 @@ describe('remapify', function(){
     }])
   })
 
-  it('works with absolute `cwd` paths', function(done){
-    b.on('remapify:files', function(files, expandedAliases){
+  it('works with absolute `cwd` paths', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         'a.js'
         , 'b.js'
@@ -206,8 +206,8 @@ describe('remapify', function(){
     }])
   })
 
-  it('works with relative `cwd` paths', function(done){
-    b.on('remapify:files', function(files, expandedAliases){
+  it('works with relative `cwd` paths', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         'a.js'
         , 'b.js'
@@ -229,8 +229,8 @@ describe('remapify', function(){
     }])
   })
 
-  it('works with a `src` that has more than a pattern', function(done){
-    b.on('remapify:files', function(files, expandedAliases){
+  it('works with a `src` that has more than a pattern', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         'target/a.js'
         , 'target/b.js'
@@ -252,7 +252,7 @@ describe('remapify', function(){
     }])
   })
 
-  it('adds all expanded aliases to module-deps modules', function(done){
+  it('adds all expanded aliases to module-deps modules', function (done) {
     plugin(b, [{
       src: './**/*.js'
       , cwd: path.join(__dirname, 'fixtures', 'target')
@@ -269,8 +269,8 @@ describe('remapify', function(){
     done()
   })
 
-  it('works with the filter option', function(done){
-    b.on('remapify:files', function(files, expandedAliases){
+  it('works with the filter option', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
       expandedAliases.should.contain.keys(
         '_a.js'
         , '_b.js'
@@ -289,7 +289,7 @@ describe('remapify', function(){
     plugin(b, [{
       src: './**/*.js'
       , cwd: './test/fixtures/target'
-      , filter: function(alias, dirname, basename){
+      , filter: function (alias, dirname, basename) {
         return path.join(dirname, '_' + basename)
       }
     }])
