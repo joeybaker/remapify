@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.3 | 2015-06-24
+* docs: Add alternatives to readme
+
 ## v2.0.2 | 2015-06-11
 * fix: reapply our alias map if the underlying browserify pipeline is reset.
 This fixes compatibility with watchify.
@@ -65,6 +68,7 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
 
 
 
