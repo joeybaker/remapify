@@ -3,6 +3,8 @@ Remapify [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/j
 
 A [Browserify](https://github.com/substack/node-browserify) plugin to map whole directories as different directories to browserify. This is useful if you have a common batch of files that you don't want to have to refer to relatively all the time.
 
+If remapify doesn't work for you for any reason, you might want to give [aliasify](https://github.com/benbria/aliasify) or [pathmodify](https://github.com/jmm/pathmodify) a look.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
