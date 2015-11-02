@@ -13,7 +13,7 @@
     "prepublish": "in-publish && source ./scripts.sh && npm prune && npm run nsp && npm run gitPush || in-install",
     "lint": "eslint .",
     "requireGitClean": "source ./scripts.sh && git_require_clean_work_tree",
-    "nsp": "nsp audit-package",
+    "nsp": "nsp check",
     "note2": "--no-verify skips the commit hook",
     "dmn": "dmn gen -f . && if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != '' ]]; then git add .npmignore && git commit --no-verify -m'update npmignore'; fi",
     "doctoc": "doctoc README.md && if [ -f CONTRIBUTING.md ]; then doctoc CONTRIBUTING.md; fi && if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != '' ]]; then git add README.md CONTRIBUTING.md && git commit --no-verify -m'table of contents update'; fi",
@@ -70,7 +70,7 @@
     "minimist": "1.1.1",
     "mocha": "^2.2.5",
     "nodemon": "^1.3.7",
-    "nsp": "^1.0.1",
+    "nsp": "^2.0.0",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0"
   },
