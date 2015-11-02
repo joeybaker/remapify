@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.0 | 2015-11-02
+* add: now resolves `index.js` when no file is provided. Fixes #20. Thanks @ehynds
+* internal: Update nsp
+
 ## v2.0.3 | 2015-06-24
 * docs: Add alternatives to readme
 
@@ -68,6 +72,7 @@ Initial release. Docs complete, tests pass, and module structure in place. This 
 
 ## 0.0.0
 Init
+
 
 
 
