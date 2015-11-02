@@ -324,4 +324,26 @@ describe('remapify', function () {
       done()
     })
   })
+
+  it('works with folders as modules', function (done) {
+    b.on('remapify:files', function (files, expandedAliases) {
+      expandedAliases.should.contain.keys(
+        'folderAsModule'
+        , 'folderAsModule/index'
+        , 'folderAsModule/index.js'
+        , 'folderAsModule\\index'
+        , 'folderAsModule\\index.js'
+      )
+
+      b.emit.should.not.have.been.calledWith('error')
+
+      done()
+    })
+
+    plugin(b, [{
+      src: 'folderAsModule/**/*.js'
+      , cwd: path.join(__dirname, 'fixtures')
+    }])
+
+  })
 })
