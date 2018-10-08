@@ -7,6 +7,7 @@
     "test": "test"
   },
   "scripts": {
+    "audit": "npm audit",
     "test": "mocha test/*.js",
     "tdd": "nodemon -x npm -i node_modules/ -- test",
     "note1": "we can't have nice things. prepublish also runs on npm install https://github.com/npm/npm/issues/6394 in-publish hacks around this",
@@ -14,6 +15,7 @@
     "lint": "eslint .",
     "requireGitClean": "source ./scripts.sh && git_require_clean_work_tree",
     "note2": "--no-verify skips the commit hook",
+    "nsp": "npm run audit",
     "dmn": "dmn gen -f . && if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != '' ]]; then git add .npmignore && git commit --no-verify -m'update npmignore'; fi",
     "doctoc": "doctoc README.md && if [ -f CONTRIBUTING.md ]; then doctoc CONTRIBUTING.md; fi && if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != '' ]]; then git add README.md CONTRIBUTING.md && git commit --no-verify -m'table of contents update'; fi",
     "gitPull": "git pull --rebase origin master",
@@ -56,7 +58,6 @@
     "dmn": "^2.0.0",
     "doctoc": "^1.3.1",
     "eslint": "^5.6.1",
-    "ghooks": "^2.0.4",
     "in-publish": "^2.0.0",
     "minimist": "^1.2.0",
     "mocha": "^5.2.0",
