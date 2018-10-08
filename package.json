@@ -1,33 +1,26 @@
 {
   "name": "remapify",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Alias directories of files for browserify",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "audit": "npm audit",
     "test": "mocha test/*.js",
     "tdd": "nodemon -x npm -i node_modules/ -- test",
     "note1": "we can't have nice things. prepublish also runs on npm install https://github.com/npm/npm/issues/6394 in-publish hacks around this",
-    "prepublish": "in-publish && source ./scripts.sh && npm prune && npm run nsp && npm run gitPush || in-install",
+    "prepublish": "in-publish && source ./scripts.sh && npm prune && npm run audit && npm run gitPush || in-install",
     "lint": "eslint .",
     "requireGitClean": "source ./scripts.sh && git_require_clean_work_tree",
-    "nsp": "nsp check",
     "note2": "--no-verify skips the commit hook",
+    "nsp": "npm run audit",
     "dmn": "dmn gen -f . && if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != '' ]]; then git add .npmignore && git commit --no-verify -m'update npmignore'; fi",
     "doctoc": "doctoc README.md && if [ -f CONTRIBUTING.md ]; then doctoc CONTRIBUTING.md; fi && if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != '' ]]; then git add README.md CONTRIBUTING.md && git commit --no-verify -m'table of contents update'; fi",
     "gitPull": "git pull --rebase origin master",
     "gitPush": "git push --follow-tags --no-verify && git push --tags --no-verify",
     "release": "source ./scripts.sh && npm run requireGitClean && npm run gitPull && npm run dmn && npm run doctoc && npm_release $@"
-  },
-  "config": {
-    "notes": "important to correct the path of npm so that the git hook doesn't error",
-    "ghooks": {
-      "pre-commit": "PATH=$PATH:/usr/local/bin:/usr/local/sbin && npm run lint",
-      "pre-push": "PATH=$PATH:/usr/local/bin:/usr/local/sbin && npm run nsp && npm run dmn && npm run doctoc && npm run lint && npm test",
-      "update": "PATH=$PATH:/usr/local/bin:/usr/local/sbin && npm install"
-    }
   },
   "repository": {
     "type": "git",
@@ -56,25 +49,23 @@
   },
   "homepage": "https://github.com/joeybaker/remapify",
   "dependencies": {
-    "glob": "^5.0.10",
-    "lodash": "^3.9.3"
+    "glob": "^7.1.3",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "browserify": "^10.2.4",
-    "chai": "^3.0.0",
-    "dmn": "^1.0.10",
-    "doctoc": "^0.13.0",
-    "eslint": "^0.22.1",
-    "ghooks": "^0.3.2",
-    "in-publish": "^1.1.1",
-    "minimist": "1.1.1",
-    "mocha": "^2.2.5",
-    "nodemon": "^1.3.7",
-    "nsp": "^2.0.0",
-    "sinon": "^1.15.3",
-    "sinon-chai": "^2.8.0"
+    "browserify": "^16.2.3",
+    "chai": "^4.2.0",
+    "dmn": "^2.0.0",
+    "doctoc": "^1.3.1",
+    "eslint": "^5.6.1",
+    "in-publish": "^2.0.0",
+    "minimist": "^1.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.4",
+    "sinon": "^6.3.5",
+    "sinon-chai": "^3.2.0"
   },
   "peerDependencies": {
-    "browserify": ">=7.0.0"
+    "browserify": ">=16.2.0"
   }
 }

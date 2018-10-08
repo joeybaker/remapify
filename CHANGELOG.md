@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.2.0 | 2018-10-5
+* Updates all packages to now pass an `npm audit` should be a non-breaking change
+
 ## v2.1.0 | 2015-11-02
 * add: now resolves `index.js` when no file is provided. Fixes #20. Thanks @ehynds
 * internal: Update nsp
