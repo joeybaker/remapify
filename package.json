@@ -11,7 +11,7 @@
     "test": "mocha test/*.js",
     "tdd": "nodemon -x npm -i node_modules/ -- test",
     "note1": "we can't have nice things. prepublish also runs on npm install https://github.com/npm/npm/issues/6394 in-publish hacks around this",
-    "prepublish": "in-publish && source ./scripts.sh && npm prune && npm run gitPush || in-install",
+    "prepublish": "in-publish && source ./scripts.sh && npm prune && npm run audit && npm run gitPush || in-install",
     "lint": "eslint .",
     "requireGitClean": "source ./scripts.sh && git_require_clean_work_tree",
     "note2": "--no-verify skips the commit hook",
